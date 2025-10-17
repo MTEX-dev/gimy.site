@@ -1,315 +1,232 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+<html
+    lang="{{ str_replace('_', '-', app()->getLocale()) }}"
     x-data="{ theme: localStorage.getItem('theme') || 'system', scrolled: false, mobileMenuOpen: false, showScrollTop: false }"
-    x-init="$watch('theme', val => {
-        localStorage.setItem('theme', val);
-        if (val === 'dark' || (val === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    });
-    window.addEventListener('scroll', () => {
-        scrolled = window.scrollY > 75;
-        showScrollTop = window.scrollY > 500;
-    });"
-    :class="theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : ''">
+    x-init="
+        $watch('theme', val => {
+            localStorage.setItem('theme', val);
+            if (val === 'dark' || (val === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+        const onScroll = () => {
+            scrolled = window.scrollY > 50;
+            showScrollTop = window.scrollY > 500;
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    "
+    :class="theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : ''"
+>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="{{ __('pages.lander.meta.description') }}"
+        />
+        <title>{{ __('pages.lander.meta.title') }}</title>
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ __('pages.lander.meta.description') }}">
-    <title>{{ __('pages.lander.meta.title') }}</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
+    <body
+        class="bg-white text-gray-900 transition-colors duration-200 dark:bg-gray-950 dark:text-gray-100"
+        @keydown.escape.window="mobileMenuOpen = false"
+    >
+        <nav
+            id="navbar"
+            class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+            :class="{
+                'bg-white/80 dark:bg-gray-950/80 backdrop-blur-lg shadow-md border-b border-gray-200 dark:border-gray-800': scrolled,
+                'border-b border-transparent': !scrolled
+            }"
+        >
+            <div
+                class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
+            >
+                <a href="/" class="flex items-center space-x-2">
+                    <x-application-logo
+                        class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200"
+                    />
+                </a>
 
-<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
-
-    <nav id="navbar"
-        class="fixed top-2 left-1/2 -translate-x-1/2 z-50 transition-all duration-300 rounded-full w-[75%] max-w-7xl"
-        :class="{
-            'bg-white/70 dark:bg-gray-800/70 backdrop-blur-md shadow-lg border border-gray-200 dark:border-gray-700 px-6 py-3': scrolled,
-            'bg-transparent border-transparent px-8 py-4': !scrolled
-        }">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <a href="/" class="flex items-center space-x-2">
-                <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-            </a>
-
-            <div class="hidden lg:flex items-center space-x-8">
-                <a href="#features" class="text-sm font-medium transition-colors"
-                    :class="scrolled ? 'text-gray-700 dark:text-gray-300 hover:text-gimysite-600 dark:hover:text-gimysite-400' : 'text-white hover:text-white/80'">
-                    Features
-                </a>
-                <a href="#how-it-works" class="text-sm font-medium transition-colors"
-                    :class="scrolled ? 'text-gray-700 dark:text-gray-300 hover:text-gimysite-600 dark:hover:text-gimysite-400' : 'text-white hover:text-white/80'">
-                    How It Works
-                </a>
-                <a href="#integrations" class="text-sm font-medium transition-colors"
-                    :class="scrolled ? 'text-gray-700 dark:text-gray-300 hover:text-gimysite-600 dark:hover:text-gimysite-400' : 'text-white hover:text-white/80'">
-                    Integrations
-                </a>
-                <a href="#pricing" class="text-sm font-medium transition-colors"
-                    :class="scrolled ? 'text-gray-700 dark:text-gray-300 hover:text-gimysite-600 dark:hover:text-gimysite-400' : 'text-white hover:text-white/80'">
-                    Pricing
-                </a>
-                <a href="#faq" class="text-sm font-medium transition-colors"
-                    :class="scrolled ? 'text-gray-700 dark:text-gray-300 hover:text-gimysite-600 dark:hover:text-gimysite-400' : 'text-white hover:text-white/80'">
-                    FAQ
-                </a>
-            </div>
-
-            <div class="flex items-center space-x-3">
-                <div class="hidden sm:flex items-center space-x-3">
-                    @auth
-                        <a href="{{ route('dashboard') }}"
-                            class="px-4 py-2 text-sm font-medium rounded-full shadow-sm transition-all duration-200"
-                            :class="scrolled ? 'bg-gimysite-600 hover:bg-gimysite-700 text-white border-transparent' : 'bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/30 text-white'">
-                            Dashboard
-                        </a>
-                    @endauth
-                    @guest
-                        <a href="{{ route('login') }}" class="px-4 py-2 text-sm font-medium transition-colors"
-                            :class="scrolled ? 'text-gray-700 dark:text-gray-300 hover:text-gimysite-600 dark:hover:text-gimysite-400' : 'text-white hover:text-white/80'">
-                            {{ __('auth.log_in') }}
-                        </a>
-                        <a href="{{ route('register') }}"
-                            class="px-4 py-2 text-sm font-medium rounded-full shadow-sm transition-all duration-200"
-                            :class="scrolled ? 'bg-gimysite-600 hover:bg-gimysite-700 text-white' : 'bg-white/20 hover:bg-white/30 backdrop-blur-sm border-white/30 text-white'">
-                            {{ __('auth.register') }}
-                        </a>
-                    @endguest
+                <div class="hidden items-center space-x-8 lg:flex">
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#how-it-works" class="nav-link">How It Works</a>
+                    <a href="#integrations" class="nav-link">Integrations</a>
+                    <a href="#pricing" class="nav-link">Pricing</a>
+                    <a href="#faq" class="nav-link">FAQ</a>
                 </div>
 
-                @include('components.locale-switcher')
-                @include('components.theme-toggle')
-
-                <button @click="mobileMenuOpen = !mobileMenuOpen"
-                    class="lg:hidden p-2 rounded-full shadow-sm hover:shadow-md transition-all"
-                    :class="scrolled ? 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700' : 'bg-white/20 backdrop-blur-sm border border-white/30 text-white'">
-                    <svg x-show="!mobileMenuOpen" class="w-5 h-5" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                    <svg x-show="mobileMenuOpen" class="w-5 h-5" fill="none" stroke="currentColor"
-                        viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-200"
-        x-transition:enter-start="opacity-0 translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
-        x-transition:leave-end="opacity-0 translate-y-1" @click.away="mobileMenuOpen = false"
-        class="lg:hidden fixed top-20 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-2rem)] max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 py-4"
-        style="display: none;">
-        <div class="flex flex-col space-y-1 px-4">
-            <a href="#features" @click="mobileMenuOpen = false"
-                class="px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
-                Features
-            </a>
-            <a href="#how-it-works" @click="mobileMenuOpen = false"
-                class="px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
-                How It Works
-            </a>
-            <a href="#integrations" @click="mobileMenuOpen = false"
-                class="px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
-                Integrations
-            </a>
-            <a href="#pricing" @click="mobileMenuOpen = false"
-                class="px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
-                Pricing
-            </a>
-            <a href="#faq" @click="mobileMenuOpen = false"
-                class="px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
-                FAQ
-            </a>
-
-            @auth
-                <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
-                    <a href="{{ route('dashboard') }}"
-                        class="block px-4 py-3 bg-gimysite-600 hover:bg-gimysite-700 text-white text-sm font-medium text-center rounded-lg transition-colors">
-                        Dashboard
-                    </a>
-                </div>
-            @endauth
-            @guest
-                <div class="pt-4 mt-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
-                    <a href="{{ route('login') }}"
-                        class="block px-4 py-3 text-sm font-medium text-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">
-                        {{ __('auth.log_in') }}
-                    </a>
-                    <a href="{{ route('register') }}"
-                        class="block px-4 py-3 bg-gimysite-600 hover:bg-gimysite-700 text-white text-sm font-medium text-center rounded-lg transition-colors">
-                        {{ __('auth.register') }}
-                    </a>
-                </div>
-            @endguest
-        </div>
-    </div>
-
-    <button x-show="showScrollTop" @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
-        x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4"
-        x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-4"
-        class="fixed bottom-8 right-8 z-50 p-3 bg-gimysite-600 hover:bg-gimysite-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 group"
-        style="display: none;">
-        <svg class="w-6 h-6 transform group-hover:-translate-y-1 transition-transform duration-200" fill="none"
-            stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-        </svg>
-    </button>
-
-    <div>
-        @include('pages.lander._hero')
-        @include('pages.lander._features')
-        @include('pages.lander._stats')
-        @include('pages.lander._how-it-works')
-        @include('pages.lander._ready-cta')
-    </div>
-
-    <footer class="py-12 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-4">Company</h3>
-                    <ul class="space-y-2">
-                        <li>
-                            <a href="/"
-                                class="text-gray-600 dark:text-gray-400 hover:text-gimysite-600 dark:hover:text-gimysite-400 transition-colors">
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#features"
-                                class="text-gray-600 dark:text-gray-400 hover:text-gimysite-600 dark:hover:text-gimysite-400 transition-colors">
-                                Features
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#pricing"
-                                class="text-gray-600 dark:text-gray-400 hover:text-gimysite-600 dark:hover:text-gimysite-400 transition-colors">
-                                Pricing
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/status"
-                                class="text-gray-600 dark:text-gray-400 hover:text-gimysite-600 dark:hover:text-gimysite-400 transition-colors">
-                                Status
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-4">Product</h3>
-                    <ul class="space-y-2">
-                        <li>
-                            <a href="/dashboard"
-                                class="text-gray-600 dark:text-gray-400 hover:text-gimysite-600 dark:hover:text-gimysite-400 transition-colors">
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <div class="hidden items-center space-x-3 sm:flex">
+                        @auth
+                            <a
+                                href="{{ route('dashboard') }}"
+                                class="nav-button-primary"
+                            >
                                 Dashboard
                             </a>
-                        </li>
-                        <li>
-                            <a href="#integrations"
-                                class="text-gray-600 dark:text-gray-400 hover:text-gimysite-600 dark:hover:text-gimysite-400 transition-colors">
-                                Integrations
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#faq"
-                                class="text-gray-600 dark:text-gray-400 hover:text-gimysite-600 dark:hover:text-gimysite-400 transition-colors">
-                                FAQ
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/sitemap"
-                                class="text-gray-600 dark:text-gray-400 hover:text-gimysite-600 dark:hover:text-gimysite-400 transition-colors">
-                                Sitemap
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-4">Legal</h3>
-                    <ul class="space-y-2">
-                        <li>
-                            <a href="{{ route('pages.legal', 'terms') }}"
-                                class="text-gray-600 dark:text-gray-400 hover:text-gimysite-600 dark:hover:text-gimysite-400 transition-colors">
-                                Terms of Service
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('pages.legal', 'privacy') }}"
-                                class="text-gray-600 dark:text-gray-400 hover:text-gimysite-600 dark:hover:text-gimysite-400 transition-colors">
-                                Privacy Policy
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('pages.legal', 'cookies') }}"
-                                class="text-gray-600 dark:text-gray-400 hover:text-gimysite-600 dark:hover:text-gimysite-400 transition-colors">
-                                Cookies Policy
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('pages.legal', 'imprint') }}"
-                                class="text-gray-600 dark:text-gray-400 hover:text-gimysite-600 dark:hover:text-gimysite-400 transition-colors">
-                                Imprint
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-4">Connect</h3>
-                    <div class="flex items-center space-x-4 mb-4">
-                        <a href="https://github.com" target="_blank" rel="noopener noreferrer"
-                            class="p-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors group">
-                            <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="currentColor"
-                                viewBox="0 0 24 24">
-                                <path fill-rule="evenodd"
-                                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </a>
-
-                        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"
-                            class="p-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors group">
-                            <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="currentColor"
-                                viewBox="0 0 24 24">
-                                <path
-                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                            </svg>
-                        </a>
+                        @else
+                            <a href="{{ route('login') }}" class="nav-link"
+                                >{{ __('auth.log_in') }}</a
+                            >
+                            <a
+                                href="{{ route('register') }}"
+                                class="nav-button-primary"
+                                >{{ __('auth.register') }}</a
+                            >
+                        @endguest
                     </div>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">
-                        Follow us for updates and news
-                    </p>
+
+                    @include('components.locale-switcher')
+                    @include('components.theme-toggle')
+
+                    <button
+                        @click="mobileMenuOpen = !mobileMenuOpen"
+                        class="z-50 p-2 text-gray-700 transition-colors dark:text-gray-300 lg:hidden"
+                        aria-label="Toggle Menu"
+                    >
+                        <svg
+                            x-show="!mobileMenuOpen"
+                            class="h-6 w-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M4 6h16M4 12h16m-7 6h7"
+                            />
+                        </svg>
+                        <svg
+                            x-show="mobileMenuOpen"
+                            class="h-6 w-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"
+                            />
+                        </svg>
+                    </button>
                 </div>
             </div>
+        </nav>
 
-            <div class="pt-8 border-t border-gray-200 dark:border-gray-700">
-                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                    <div class="text-center md:text-left text-gray-600 dark:text-gray-400">
-                        <p>&copy; {{ date('Y') }} Gimy.Site. All rights reserved.</p>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <a href="/" class="flex items-center space-x-2">
-                            <x-application-logo
-                                class="block h-8 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                        </a>
-                    </div>
-                </div>
+        <div
+            x-show="mobileMenuOpen"
+            x-transition:enter="duration-300 ease-out"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="duration-200 ease-in"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-40 bg-gray-900/50 backdrop-blur-lg lg:hidden"
+            style="display: none"
+        >
+            <div
+                class="flex h-full flex-col items-center justify-center space-y-6 text-center"
+            >
+                <a href="#features" @click="mobileMenuOpen = false" class="mobile-nav-link">Features</a>
+                <a href="#how-it-works" @click="mobileMenuOpen = false" class="mobile-nav-link">How It Works</a>
+                <a href="#integrations" @click="mobileMenuOpen = false" class="mobile-nav-link">Integrations</a>
+                <a href="#pricing" @click="mobileMenuOpen = false" class="mobile-nav-link">Pricing</a>
+                <a href="#faq" @click="mobileMenuOpen = false" class="mobile-nav-link">FAQ</a>
+                <div class="border-t border-gray-200/20 pt-8 w-48"></div>
+                @auth
+                    <a href="{{ route('dashboard') }}" class="mobile-nav-button">Dashboard</a>
+                @else
+                    <a href="{{ route('login') }}" @click="mobileMenuOpen = false" class="mobile-nav-link">{{ __('auth.log_in') }}</a>
+                    <a href="{{ route('register') }}" class="mobile-nav-button">{{ __('auth.register') }}</a>
+                @endguest
             </div>
         </div>
-    </footer>
 
-</body>
+        <main>
+            @include('pages.lander._hero')
+            @include('pages.lander._features')
+            @include('pages.lander._stats')
+            @include('pages.lander._how-it-works')
+            @include('pages.lander._ready-cta')
+        </main>
 
+        <footer class="relative overflow-hidden border-t border-gray-800 bg-black py-16">
+            <div class="absolute inset-0 opacity-10 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]">
+                <div class="absolute inset-0 bg-[radial-gradient(#ddd_1px,transparent_1px)] [background-size:32px_32px]"></div>
+            </div>
+            <div class="relative z-10 mx-auto max-w-7xl px-6">
+                <div class="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-5 mb-12">
+                    <div class="col-span-2 lg:col-span-1">
+                         <a href="/" class="mb-4 inline-block">
+                            <x-application-logo class="block h-10 w-auto fill-current text-gray-200" />
+                        </a>
+                        <p class="text-sm text-gray-400">&copy; {{ date('Y') }} Gimy.Site. All rights reserved.</p>
+                    </div>
+                    <div>
+                        <h3 class="footer-heading">Product</h3>
+                        <ul class="space-y-3">
+                            <li><a href="#features" class="footer-link">Features</a></li>
+                            <li><a href="#how-it-works" class="footer-link">How It Works</a></li>
+                            <li><a href="#pricing" class="footer-link">Pricing</a></li>
+                            <li><a href="/status" class="footer-link">Status</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="footer-heading">Company</h3>
+                        <ul class="space-y-3">
+                            <li><a href="#about" class="footer-link">About Us</a></li>
+                            <li><a href="/blog" class="footer-link">Blog</a></li>
+                            <li><a href="/contact" class="footer-link">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="footer-heading">Legal</h3>
+                        <ul class="space-y-3">
+                            <li><a href="{{ route('pages.legal', 'terms') }}" class="footer-link">Terms</a></li>
+                            <li><a href="{{ route('pages.legal', 'privacy') }}" class="footer-link">Privacy</a></li>
+                            <li><a href="{{ route('pages.legal', 'cookies') }}" class="footer-link">Cookies</a></li>
+                            <li><a href="{{ route('pages.legal', 'imprint') }}" class="footer-link">Imprint</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="footer-heading">Connect</h3>
+                        <div class="flex items-center space-x-3">
+                            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-icon">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-icon">
+                                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <button
+            x-show="showScrollTop"
+            @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+            x-transition
+            class="group fixed bottom-8 right-8 z-50 rounded-full bg-gimysite-600 p-3 text-white shadow-lg transition-all duration-300 hover:scale-110 hover:bg-gimysite-700"
+            style="display: none"
+            aria-label="Scroll to top"
+        >
+            <svg class="h-6 w-6 transform transition-transform duration-300 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+            </svg>
+        </button>
+    </body>
 </html>
