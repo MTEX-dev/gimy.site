@@ -17,7 +17,7 @@ Route::get('locale/{locale}', [PageController::class, 'setLocale'])->name('local
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [PageController::class, 'dashboard'])
-        ->middleware('verified')
+        //->middleware('verified')
         ->name('dashboard');
     Route::get('/profile', fn () => redirect()->route('profile.edit'));
     Route::get('/settings/profile', [SettingsProfileController::class, 'edit'])->name('profile.edit');
