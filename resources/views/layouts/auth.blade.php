@@ -19,7 +19,8 @@
             </a>
         </div>
 
-        <div class="absolute top-4 right-4">
+        <div class="absolute top-4 right-4 flex items-center space-x-2">
+            @include('components.locale-switcher')
             @include('components.theme-toggle')
         </div>
 
