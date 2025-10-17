@@ -10,7 +10,7 @@
     
     <div class="flex items-center justify-between w-full px-4 py-3 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm transition-all duration-200 
                 peer-hover:border-gray-400 dark:peer-hover:border-gray-500 
-                peer-focus:ring-2 peer-focus:ring-indigo-500 dark:peer-focus:ring-indigo-400 peer-focus:ring-offset-2 dark:peer-focus:ring-offset-gray-800 peer-focus:border-indigo-500 dark:peer-focus:border-indigo-400
+                peer-focus:ring-2 peer-focus:ring-brand-500 dark:peer-focus:ring-brand-400 peer-focus:ring-offset-2 dark:peer-focus:ring-offset-gray-800 peer-focus:border-brand-500 dark:peer-focus:border-brand-400
                 peer-disabled:opacity-50 peer-disabled:cursor-not-allowed">
         
         <div class="flex items-center gap-3 min-w-0 flex-1">

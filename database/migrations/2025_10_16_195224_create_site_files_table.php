@@ -20,7 +20,6 @@ return new class extends Migration
             $table->unsignedBigInteger('size_bytes');
             $table->timestamps();
             $table->unique(['site_id', 'path']);
-            $table->timestamps();
         });
     }
 

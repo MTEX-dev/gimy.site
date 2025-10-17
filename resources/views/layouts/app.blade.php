@@ -3,20 +3,19 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        @if (app('session')->has('_token'))
-            <meta name="csrf-token" content="{{ csrf_token() }}">
-        @endif
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'gimy.site') }}</title>
+        <title>@hasSection('title')@yield('title') | {{ config('app.name', 'Laravel') }}@else{{ config('app.name', 'Laravel') }}@endif</title>
 
+        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        @stack('head')
     </head>
-    <body class="font-sans antialiased flex flex-col min-h-screen">
+    <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">
         <div class="flex-grow bg-gray-100 dark:bg-gray-900">
             @if (!isset($hideNavbar) || $hideNavbar !== true)
                 @include('components.navbar')
@@ -42,5 +41,7 @@
         @if (!isset($hideScrollToTopBtn) || $hideScrollToTopBtn !== true)
             @include('components.scroll-to-top-btn')
         @endif
+        
+        @stack('scripts')
     </body>
 </html>
