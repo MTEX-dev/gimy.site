@@ -60,6 +60,14 @@ return [
             'report' => false,
         ],
 
+
+        'sites' => [
+            'driver' => 'local',
+            'root' => storage_path('app/sites'),
+            'url' => env('APP_URL').'/storage/sites',
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*

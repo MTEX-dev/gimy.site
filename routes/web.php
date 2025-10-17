@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\ProviderController;
+use App\Http\Controllers\Auth\ProviderController as AuthProviderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Settings\AvatarController as SettingsAvatarController;
@@ -31,8 +31,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/settings/sessions/logout-others', [SettingsSessionController::class, 'destroyAllOthers'])->name('settings.sessions.destroy-others');
 });
 
-Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect'])->name('auth.provider.redirect');
-Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback'])->name('auth.provider.callback');
+
+
+Route::get('/auth/{provider}/redirect', [AuthProviderController::class, 'redirect'])->name('auth.provider.redirect');
+Route::get('/auth/{provider}/callback', [AuthProviderController::class, 'callback'])->name('auth.provider.callback');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

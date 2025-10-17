@@ -12,6 +12,7 @@ return [
     'oauth_signup' => 'Sign up with :provider',
     'log_in' => 'Log In',
     'login' => 'Login',
+    'log_out' => 'Log out',
     'remember_me' => 'Remember me',
     'forgot_password' => 'Forgot your password?',
     'oauth_login' => 'Log in with :provider',
