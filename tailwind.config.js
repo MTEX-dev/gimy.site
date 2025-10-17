@@ -14,6 +14,20 @@ export default {
         extend: {
             colors: {
                 gimysite: {
+                    50: '#F0FDF4',
+                    100: '#DCFCE7',
+                    200: '#BBF7D0',
+                    300: '#86EFAC',
+                    400: '#4ADE80',
+                    500: '#22C55E',
+                    600: '#16A34A',
+                    700: '#15803D',
+                    800: '#166534',
+                    900: '#14532D',
+                    950: '#0C3D22',
+                },
+                /*
+                gimysite: {
                     50: '#eef2ff',
                     100: '#e0e7ff',
                     200: '#c7d2fe',
@@ -26,6 +40,7 @@ export default {
                     900: '#312e81',
                     950: '#1e1b4b',
                 },
+                */
             },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],

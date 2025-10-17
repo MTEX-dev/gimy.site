@@ -10,7 +10,7 @@
 
                 @auth
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-gray-700 dark:text-gray-300 hover:text-gimysite-600 dark:hover:text-gimysite-400">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
@@ -73,11 +73,11 @@
                 @guest
                 <div class="hidden sm:flex items-center space-x-3">
                     <a href="{{ route('login') }}"
-                       class="px-4 py-2 text-sm font-medium transition-colors text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400">
+                       class="px-4 py-2 text-sm font-medium transition-colors text-gray-700 dark:text-gray-300 hover:text-gimysite-600 dark:hover:text-gimysite-400">
                         {{ __('auth.login') }}
                     </a>
                     <a href="{{ route('register') }}"
-                       class="px-4 py-2 text-white text-sm font-medium rounded-full shadow-sm transition-all duration-200 bg-brand-600 hover:bg-brand-700">
+                       class="px-4 py-2 text-white text-sm font-medium rounded-full shadow-sm transition-all duration-200 bg-gimysite-600 hover:bg-gimysite-700">
                         {{ __('auth.register') }}
                     </a>
                 </div>
