@@ -8,6 +8,13 @@ return [
         'fr' => 'French',
     ],
 
+    'legal_sections' => [
+        'imprint',
+        'cookies',
+        'terms',
+        'privacy',
+    ]
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

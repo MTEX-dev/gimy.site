@@ -1,6 +1,6 @@
 <div x-data="{ open: false }" @click.away="open = false" class="relative">
     <button @click="open = ! open"
-        class="inline-flex items-center px-2 py-1 rounded-md duration-255 hover:bg-gray-100 dark:hover:bg-gray-700 transition
+        class="inline-flex items-center px-1 py-1 rounded-md duration-255 hover:bg-gray-100 dark:hover:bg-gray-700 transition
                text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
         <img src="{{ asset('img/locales/' . app()->getLocale() . '.png') }}" alt="{{ strtoupper(app()->getLocale()) }}"
             class="h-5 w-7">
