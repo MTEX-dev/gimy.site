@@ -14,7 +14,7 @@
     <div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95"
         x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
         x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-        class="absolute z-50 mt-2 rounded-md shadow-lg w-32 right-0
+        class="absolute z-50 mt-2 rounded-md shadow-lg w-28 right-0
                origin-top-right bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none"
         style="display: none;">
         <div class="py-1">

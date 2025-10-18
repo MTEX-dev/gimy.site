@@ -188,5 +188,6 @@ Gimy.Site is a FREE service. Data may be lost or removed at any time for any or 
     ],
     'dashboard' => [
         'welcome_message' => 'Welcome to your dashboard, :name!',
+        'welcome_subtitle' => 'Here you can manage your static websites.'
     ],
 ];

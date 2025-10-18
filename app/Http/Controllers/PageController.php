@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{User, Site, SiteVisit, SiteFile};
+use App\Models\{User, Site, SiteVisit};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
@@ -14,7 +14,7 @@ class PageController extends Controller
             'total_users' => User::count(),
             'total_sites' => Site::count(),
             'total_site_visits' => SiteVisit::count(),
-            'total_site_files' => SiteFile::count(),
+            'total_site_files' => 0,
         ];
 
         return view('pages.lander', compact('stats'));

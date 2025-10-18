@@ -39,7 +39,7 @@
             id="navbar"
             class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
             :class="{
-                'bg-white/80 dark:bg-gray-950/80 backdrop-blur-lg shadow-md border-b border-gray-200 dark:border-gray-800': scrolled,
+                'bg-white/40 dark:bg-gray-950/50 backdrop-blur-lg shadow-md border-b border-gray-200 dark:border-gray-800': scrolled,
                 'border-b border-transparent': !scrolled
             }"
         >
