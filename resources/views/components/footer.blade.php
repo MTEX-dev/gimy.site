@@ -13,17 +13,17 @@
 
             <div>
                 <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider">
-                    About Us
+                    -- -- --
                 </h3>
                 <ul class="mt-4 space-y-2">
                     <li>
                         <a href="#" class="text-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
-                            Our Story
+                            -----
                         </a>
                     </li>
                     <li>
                         <a href="#" class="text-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
-                            Team
+                            -----
                         </a>
                     </li>
                 </ul>
@@ -31,17 +31,12 @@
 
             <div>
                 <h3 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider">
-                    Services
+                    ---
                 </h3>
                 <ul class="mt-4 space-y-2">
                     <li>
-                        <a href="#" class="text-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
-                            Consulting
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
-                            Support
+                        <a href="{{ route('pages.sitemap') }}" class="text-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
+                            Sitemap
                         </a>
                     </li>
                 </ul>

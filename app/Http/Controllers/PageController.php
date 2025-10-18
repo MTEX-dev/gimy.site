@@ -49,4 +49,31 @@ class PageController extends Controller
     {
         return view('pages.dashboard');
     }
+
+    public function sitemap()
+    {
+        $pages = [
+            ['route' => 'pages.lander', 'title' => 'Home'],
+            ['route' => 'login', 'title' => 'Login'],
+            ['route' => 'register', 'title' => 'Register'],
+        ];
+
+        $legalSections = config('app.legal_sections', ['terms', 'privacy', 'cookies', 'imprint']);
+
+        return view('pages.sitemap', compact('pages', 'legalSections'));
+    }
+
+    public function sitemapXml()
+    {
+        $pages = [
+            ['route' => 'pages.lander'],
+            ['route' => 'login'],
+            ['route' => 'register'],
+        ];
+
+        $legalSections = config('app.legal_sections', ['terms', 'privacy', 'cookies', 'imprint']);
+
+        return response()->view('pages.sitemap_xml', compact('pages', 'legalSections'))
+            ->header('Content-Type', 'application/xml');
+    }
 }

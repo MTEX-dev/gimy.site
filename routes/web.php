@@ -14,6 +14,9 @@ Route::get('/', [PageController::class, 'lander'])->name('pages.lander');
 Route::get('/legal/{section}', [PageController::class, 'legal'])->name('pages.legal');
 Route::get('/error/{code}', [PageController::class, 'error'])->name('pages.error');
 Route::get('locale/{locale}', [PageController::class, 'setLocale'])->name('locale.set');
+Route::get('/sitemap', [PageController::class, 'sitemap'])->name('pages.sitemap');
+Route::get('/sitemap.xml', [PageController::class, 'sitemapXml'])->name('pages.sitemap.xml');
+Route::get('/sitemap/raw', [PageController::class, 'sitemapXml']);
 
 
 Route::middleware('auth')->group(function () {

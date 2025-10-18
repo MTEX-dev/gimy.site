@@ -186,8 +186,22 @@ Gimy.Site is a FREE service. Data may be lost or removed at any time for any or 
             'back_home' => 'Go to Homepage',
         ],
     ],
+    
     'dashboard' => [
         'welcome_message' => 'Welcome to your dashboard, :name!',
         'welcome_subtitle' => 'Here you can manage your static websites.'
+    ],
+
+    'sitemap' => [
+        'meta' => [
+            'title' => 'Sitemap',
+            'description' => 'Navigate through all available pages on Gimy.Site',
+        ],
+        'heading' => 'Sitemap',
+        'subheading' => 'Navigate through all available pages',
+        'sections' => [
+            'main_pages' => 'Main Pages',
+            'legal_info' => 'Legal Information',
+        ],
     ],
 ];
