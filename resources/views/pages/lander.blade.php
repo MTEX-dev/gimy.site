@@ -190,7 +190,7 @@
                         >
                             Product
                         </h3>
-                        <ul class="space-y-3">
+                        <ul class="space-y-1 mt-2">
                             <li>
                                 <a href="#features" class="footer-link"
                                     >Features</a
@@ -219,7 +219,7 @@
                         >
                             Company
                         </h3>
-                        <ul class="space-y-3">
+                        <ul class="space-y-1 mt-2">
                             <li>
                                 <a href="#about" class="footer-link"
                                     >About Us</a
@@ -241,7 +241,7 @@
                         >
                             Legal
                         </h3>
-                        <ul class="space-y-3">
+                        <ul class="space-y-1 mt-2">
                             @foreach(config('app.legal_sections') as $section)
                             <li>
                                 <a href="{{ route('pages.legal', $section) }}" class="footer-link">{{ __('pages.legal.'.$section.'.title')}}</a>

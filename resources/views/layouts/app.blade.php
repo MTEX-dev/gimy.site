@@ -6,8 +6,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <title>
-            @hasSection('title')@yield('title') |
-            {{ config('app.name', 'Laravel') }}@else{{ config('app.name', 'Laravel') }}@endif
+            @hasSection('title')@yield('title') -
+            {{ config('app.name', 'Gimy.Site') }}@else{{ config('app.name', 'Gimy.Site') }}@endif
         </title>
 
         <link rel="preconnect" href="https://fonts.bunny.net" />

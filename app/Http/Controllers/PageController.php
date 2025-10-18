@@ -22,10 +22,12 @@ class PageController extends Controller
 
     public function legal(string $section)
     {
-        $validSections = ['terms', 'privacy', 'cookies', 'imprint'];
+        $validSections = config('app.legal_sections', ['terms', 'privacy', 'cookies', 'imprint']);
+    
         if (!in_array($section, $validSections)) {
-            return $this->error('404');
+            abort(404);
         }
+    
         return view('pages.legal', compact('section', 'validSections'));
     }
 
