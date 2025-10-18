@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Settings\AvatarController as SettingsAvatarController;
 use App\Http\Controllers\Settings\SessionController as SettingsSessionController;
 use App\Http\Controllers\Settings\ProfileController as SettingsProfileController;
+use App\Http\Controllers\Settings\PasswordController as SettingsPasswordController;
 use App\Http\Controllers\SlugController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,10 +20,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [PageController::class, 'dashboard'])
         //->middleware('verified')
         ->name('dashboard');
-    Route::get('/profile', fn () => redirect()->route('profile.edit'));
-    Route::get('/settings/profile', [SettingsProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [SettingsProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [SettingsProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/settings/profile', [SettingsProfileController::class, 'edit'])->name('settings.profile');
+    Route::patch('/settings/profile', [SettingsProfileController::class, 'update'])->name('settings.profile.update');
+    Route::delete('/settings/profile', [SettingsProfileController::class, 'destroy'])->name('settings.profile.destroy');
+
+    Route::get('/settings/password', [SettingsPasswordController::class, 'edit'])->name('settings.password');
+    Route::put('/settings/password', [SettingsPasswordController::class, 'update'])->name('settings.password.update');
     Route::get('/settings/avatar', [SettingsAvatarController::class, 'edit'])->name('settings.avatar');
     Route::patch('/settings/avatar', [SettingsAvatarController::class, 'update'])->name('settings.avatar.update');
     Route::delete('/settings/avatar', [SettingsAvatarController::class, 'destroy'])->name('settings.avatar.destroy');
