@@ -45,4 +45,10 @@ return [
         'last_active' => 'Last active',
         'logout_button' => 'Log Out Other Browser Sessions',
     ],
+    'nav' => [
+        'profile' => 'Profile',
+        'password' => 'Password',
+        'avatar' => 'Avatar',
+        'sessions' => 'Browser Sessions',
+    ],
 ];
