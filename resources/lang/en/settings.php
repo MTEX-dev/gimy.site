@@ -1,0 +1,48 @@
+<?php
+
+return [
+    'profile' => [
+        'title' => 'Profile Information',
+        'description' => "Update your account's profile information and email address.",
+        'name' => 'Name',
+        'email' => 'Email',
+        'update_button' => 'Save',
+        'saved' => 'Saved.',
+    ],
+    'password' => [
+        'title' => 'Update Password',
+        'description' => 'Ensure your account is using a long, random password to stay secure.',
+        'current_password' => 'Current Password',
+        'new_password' => 'New Password',
+        'confirm_new_password' => 'Confirm Password',
+        'update_button' => 'Save',
+        'saved' => 'Saved.',
+    ],
+    'delete' => [
+        'title' => 'Delete Account',
+        'description' => 'Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.',
+        'delete_button' => 'Delete Account',
+        'warning' => 'Are you sure you want to delete your account?',
+        'confirm_placeholder' => 'Password',
+        'cancel_button' => 'Cancel',
+        'confirm_button' => 'Delete Account',
+    ],
+    'avatar' => [
+        'title' => 'Avatar',
+        'description' => 'Update your account\'s avatar.',
+        'choose_new' => 'Choose a new avatar',
+        'formats' => 'JPG, GIF or PNG. 1MB max.',
+        'upload_button' => 'Upload',
+        'saved' => 'Saved.',
+        'remove_custom' => 'Remove custom avatar',
+        'remove_description' => 'If you remove your custom avatar, we will use a default avatar for your profile.',
+        'remove_button' => 'Remove Avatar',
+    ],
+    'sessions' => [
+        'title' => 'Browser Sessions',
+        'description' => 'Manage and log out your active sessions on other browsers and devices.',
+        'this_device' => 'This device',
+        'last_active' => 'Last active',
+        'logout_button' => 'Log Out Other Browser Sessions',
+    ],
+];
