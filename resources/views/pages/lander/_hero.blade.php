@@ -1,4 +1,6 @@
-<section class="relative flex h-screen items-center justify-center overflow-hidden">
+<section
+    class="relative flex h-screen items-center justify-center overflow-hidden"
+>
     <div
         class="absolute inset-0 bg-gradient-to-br from-gimysite-100 via-gimysite-200 to-white dark:from-gimysite-700 dark:via-gimysite-900 dark:to-black"
     ></div>
@@ -86,22 +88,19 @@
             <span
                 class="flex h-2 w-2 rounded-full bg-gimysite-500 animate-pulse dark:bg-gimysite-400"
             ></span>
-            <span>Powered by mtex.dev</span>
+            <span>{{ __('pages.lander.hero.headline') }}</span>
         </div>
 
         <h1
             class="mb-6 bg-gradient-to-r from-gimysite-900 via-gimysite-800 to-gimysite-700 bg-clip-text text-4xl font-bold leading-tight text-transparent drop-shadow-lg md:text-6xl lg:text-7xl animate-gradient dark:from-white dark:via-gimysite-100 dark:to-gimysite-200"
         >
-            The Developer's Sandbox<br />for Web Creation
+            {{ __('pages.lander.hero.title') }}
         </h1>
 
         <p
             class="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-gimysite-700/80 md:text-xl dark:text-gimysite-100/80"
         >
-            Gimy.site is a rapid-deployment platform from
-            <span class="font-semibold text-gimysite-900 dark:text-white">mtex.dev</span>. Write
-            HTML, CSS, and JS for multiple pages and publish your static sites
-            instantly.
+            {!! __('pages.lander.hero.subheadline') !!}
         </p>
 
         <!--form class="mx-auto max-w-2xl" x-data="{ username: '' }">

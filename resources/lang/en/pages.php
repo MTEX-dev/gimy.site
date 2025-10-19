@@ -3,16 +3,18 @@
 return [
     'lander' => [
         'meta' => [
-            'title' => '',
-            'description' => '',
+            'title' => 'Gimy.site - The Developer\'s Sandbox for Web Creation',
+            'description' =>
+                'Gimy.site is a rapid-deployment platform from mtex.dev. Write HTML, CSS, and JS for multiple pages and publish your static sites instantly.',
         ],
         'hero' => [
-            'title' => '',
-            'headline' => '',
-            'subheadline' => '',
-            'placeholder' => '',
-            'validation_message' => '',
-            'cta' => '',
+            'title' => 'The Developer\'s Sandbox for Web Creation',
+            'headline' => 'Powered by mtex.dev',
+            'subheadline' =>
+                'Gimy.site is a rapid-deployment platform from <span class="font-semibold text-gimysite-900 dark:text-white">mtex.dev</span>. Write HTML, CSS, and JS for multiple pages and publish your static sites instantly.',
+            'placeholder' => 'Your Project Name',
+            'validation_message' => 'Your project name must be unique.',
+            'cta' => 'Create Project',
         ],
         'features' => [
             'title' => '',
