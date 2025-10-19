@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
+use App\Models\Organisation;
 
 class User extends Authenticatable
 {
@@ -40,6 +40,23 @@ class User extends Authenticatable
         parent::boot();
         static::creating(function ($model) {
             $model->{$model->getKeyName()} = (string) Str::uuid();
+        });
+
+        static::created(function ($user) {
+            $slug = Str::slug($user->name);
+            $originalSlug = $slug;
+            $count = 1;
+            while (Organisation::where('slug', $slug)->exists()) {
+                $slug = $originalSlug . '-' . $count++;
+            }
+
+            $organisation = Organisation::create([
+                'name' => $user->name,
+                'user_id' => $user->id,
+                'slug' => $slug,
+            ]);
+
+            $organisation->users()->attach($user->id, ['role' => 'owner']);
         });
     }
 
