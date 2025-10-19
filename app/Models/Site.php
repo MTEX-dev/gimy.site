@@ -15,7 +15,7 @@ class Site extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'user_id',
+        'organisation_id',
         'name',
         'slug',
         'custom_domain',
@@ -39,9 +39,9 @@ class Site extends Model
         });
     }
 
-    public function user()
+    public function organisation()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Organisation::class);
     }
 
     public function backups()
@@ -52,11 +52,6 @@ class Site extends Model
     public function visits()
     {
         return $this->hasMany(SiteVisit::class);
-    }
-
-    public function members()
-    {
-        return $this->hasMany(SiteMember::class);
     }
 
     /**

@@ -43,14 +43,9 @@ class User extends Authenticatable
         });
     }
 
-    public function sites()
+    public function organisations()
     {
-        return $this->hasMany(Site::class);
-    }
-
-    public function siteMemberships()
-    {
-        return $this->hasMany(SiteMember::class);
+        return $this->belongsToMany(Organisation::class, 'organisation_members');
     }
 
     public function getDisplayableAvatar()
