@@ -10,7 +10,14 @@ use App\Http\Controllers\Settings\PasswordController as SettingsPasswordControll
 use App\Http\Controllers\SlugController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [PageController::class, 'lander'])->name('pages.lander');
+Route::get('/', function () {
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+    return redirect()->route('pages.lander');
+})->name('home');
+
+Route::get('/lander', [PageController::class, 'lander'])->name('pages.lander');
 Route::get('/legal/{section}', [PageController::class, 'legal'])->name('pages.legal');
 Route::get('/error/{code}', [PageController::class, 'error'])->name('pages.error');
 Route::get('locale/{locale}', [PageController::class, 'setLocale'])->name('locale.set');
