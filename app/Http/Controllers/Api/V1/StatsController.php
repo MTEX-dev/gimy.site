@@ -18,4 +18,33 @@ class StatsController extends Controller
             'sites' => Site::count(),
         ]);
     }
+
+    public function admin()
+    {
+        $users = User::withCount('organisations')->get()->map(function ($user) {
+            $siteCount = 0;
+            foreach ($user->organisations as $organisation) {
+                $siteCount += $organisation->sites()->count();
+            }
+            $user->sites_count = $siteCount;
+            return $user;
+        });
+
+        $organisations = Organisation::withCount('sites', 'users')->get();
+
+        $sites = Site::with('organisation.users')->get()->map(function ($site) {
+            return [
+                'id' => $site->id,
+                'name' => $site->name,
+                'organisation_name' => $site->organisation->name,
+                'organisation_user_count' => $site->organisation->users->count(),
+            ];
+        });
+
+        return response()->json([
+            'users' => $users,
+            'organisations' => $organisations,
+            'sites' => $sites,
+        ]);
+    }
 }
