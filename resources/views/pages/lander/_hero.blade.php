@@ -103,6 +103,13 @@
             {!! __('pages.lander.hero.subheadline') !!}
         </p>
 
+        <a
+            href="#"
+            class="inline-block rounded-full bg-gimysite-600 px-8 py-3 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-gimysite-700 focus:outline-none focus:ring-2 focus:ring-gimysite-500 focus:ring-offset-2 dark:bg-gimysite-500 dark:hover:bg-gimysite-600"
+        >
+        {{ __('pages.lander.hero.cta') }}
+        </a>
+
         <!--form class="mx-auto max-w-2xl" x-data="{ username: '' }">
             <div class="relative group">
                 <div

@@ -12,9 +12,11 @@ return [
             'headline' => 'Powered by mtex.dev',
             'subheadline' =>
                 'Gimy.site is a rapid-deployment platform from <span class="font-semibold text-gimysite-900 dark:text-white">mtex.dev</span>. Write HTML, CSS, and JS for multiple pages and publish your static sites instantly.',
+            //'cta' => 'Start Building for Free',
+            'cta' => 'Start Building Now',
             'placeholder' => 'Your Project Name',
             'validation_message' => 'Your project name must be unique.',
-            'cta' => 'Create Project',
+            //'cta' => 'Create Project',
         ],
         'features' => [
             'title' => 'title of featuires',
