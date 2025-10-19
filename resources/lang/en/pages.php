@@ -46,7 +46,26 @@ return [
                 'description' => 'description6',
             ],
         ],
-        'stats' => [],
+        'stats' => [
+            'title' => 'Our Impact in Numbers',
+            'subheadline' => 'See what we\'ve achieved so far.',
+            'sites' => [
+                'title' => 'Sites Created',
+                'data' => 'DUMMY',
+            ],
+            'free_sites' => [
+                'title' => 'Sites for Free',
+                'data' => 'Unlimited',
+            ],
+            'instant_online' => [
+                'title' => 'Online Instantly',
+                'data' => '99.9%',
+            ],
+            'uptime' => [
+                'title' => 'Free Uptime',
+                'data' => '24/7',
+            ],
+        ],
     ],
 
     'legal' => [

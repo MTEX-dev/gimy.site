@@ -107,43 +107,37 @@
             href="#"
             class="inline-block rounded-full bg-gimysite-600 px-8 py-3 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-gimysite-700 focus:outline-none focus:ring-2 focus:ring-gimysite-500 focus:ring-offset-2 dark:bg-gimysite-500 dark:hover:bg-gimysite-600"
         >
-        {{ __('pages.lander.hero.cta') }}
+            {{ __('pages.lander.hero.cta') }}
         </a>
 
-        <!--form class="mx-auto max-w-2xl" x-data="{ username: '' }">
-            <div class="relative group">
-                <div
-                    class="absolute -inset-1 rounded-full bg-gradient-to-r from-gimysite-500 to-gimysite-700 blur opacity-25 transition duration-1000 group-hover:opacity-40 dark:from-gimysite-400 dark:to-gimysite-600"
-                ></div>
-                <div
-                    class="relative flex flex-col items-stretch overflow-hidden rounded-full bg-white/70 backdrop-blur-lg shadow-2xl ring-1 ring-gimysite-300/20 sm:flex-row dark:bg-white/5 dark:ring-gimysite-200/20"
-                >
-                    <div class="relative flex flex-1 items-center">
-                        <input
-                            type="text"
-                            x-model="username"
-                            placeholder="{{ __('pages.lander.hero.placeholder') }}"
-                            class="peer w-full border-0 bg-transparent py-5 pl-6 pr-2 text-lg text-gimysite-900 placeholder-gray-500 outline-none focus:ring-0 dark:text-white dark:placeholder-gray-400"
-                        />
-                        <span
-                            class="pr-2 font-semibold text-gimysite-500 dark:text-gimysite-400"
-                        >.gimy.site</span
-                        >
-                    </div>
-
-                    <button
-                        type="submit"
-                        class="whitespace-nowrap bg-gradient-to-r from-gimysite-600 to-gimysite-700 px-8 py-5 font-bold text-white transition-all duration-300 hover:scale-105 hover:from-gimysite-700 hover:to-gimysite-800 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-gimysite-500 focus-visible:ring-offset-2 sm:rounded-full dark:from-gimysite-500 dark:to-gimysite-600 dark:hover:from-gimysite-600 dark:hover:to-gimysite-700 dark:focus-visible:ring-gimysite-400"
-                    >
-                        {{ __('pages.lander.hero.cta') }}
-                    </button>
-                </div>
+        <!-- Stats Section -->
+        <div class="mt-16 grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div class="rounded-lg bg-gimysite-100/50 p-6 shadow-md backdrop-blur-sm dark:bg-white/10">
+                <p class="text-4xl font-bold text-gimysite-800 dark:text-gimysite-100">
+                    {{ __('pages.lander.stats.sites.data') }}
+                </p>
+                <p class="mt-2 text-gimysite-700 dark:text-gimysite-200">
+                    {{ __('pages.lander.stats.sites.title') }}
+                </p>
             </div>
-
-            <p class="mt-4 text-sm text-gimysite-600/60 dark:text-gimysite-100/60">
-                {{ __('pages.lander.hero.validation_message') }}
-            </p>
-        </form-->
+            <div class="rounded-lg bg-gimysite-100/50 p-6 shadow-md backdrop-blur-sm dark:bg-white/10">
+                <p class="text-4xl font-bold text-gimysite-800 dark:text-gimysite-100">
+                    {{ __('pages.lander.stats.free_sites.data') }}
+                </p>
+                <p class="mt-2 text-gimysite-700 dark:text-gimysite-200">
+                    {{ __('pages.lander.stats.free_sites.title') }}
+                </p>
+            </div>
+            <div class="rounded-lg bg-gimysite-100/50 p-6 shadow-md backdrop-blur-sm dark:bg-white/10">
+                <p class="text-4xl font-bold text-gimysite-800 dark:text-gimysite-100">
+                    {{ __('pages.lander.stats.instant_online.data') }}
+                </p>
+                <p class="mt-2 text-gimysite-700 dark:text-gimysite-200">
+                    {{ __('pages.lander.stats.instant_online.title') }}
+                </p>
+            </div>
+        </div>
+        <!-- End Stats Section -->
     </div>
 
     <style>
