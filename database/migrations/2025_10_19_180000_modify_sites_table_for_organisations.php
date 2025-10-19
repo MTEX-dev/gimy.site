@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('sites', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
             $table->dropColumn('user_id');
-            $table->foreignId('organisation_id')->constrained()->cascadeOnDelete();
+            $table->foreignUuid('organisation_id')->constrained()->cascadeOnDelete();
         });
     }
 
