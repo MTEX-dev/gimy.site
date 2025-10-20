@@ -207,7 +207,7 @@
       </div>
 
       <div class="flex items-center ml-auto">
-        <x-locale-switcher />
+        <!--x-locale-switcher /-->
         <x-theme-toggle />
 
         <!-- Search Button -->
