@@ -50,7 +50,9 @@ class PageController extends Controller
 
     public function dashboard()
     {
-        return view('pages.dashboard');
+        $organisations = Auth::user()->organisations();
+
+        return view('pages.dashboard', compact('organisations'));
     }
 
     public function sitemap()
@@ -147,6 +149,7 @@ class PageController extends Controller
 
         $payload = [
             'app' => config('app.name'),
+            //'time' => now('Europe/Berlin')->toIso8601String(),
             'time' => now()->toIso8601String(),
             'database' => $db,
             'storage' => [
