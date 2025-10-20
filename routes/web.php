@@ -26,6 +26,7 @@ Route::get('locale/{locale}', [PageController::class, 'setLocale'])->name('local
 Route::get('/sitemap', [PageController::class, 'sitemap'])->name('pages.sitemap');
 Route::get('/sitemap.xml', [PageController::class, 'sitemapXml'])->name('pages.sitemap.xml');
 Route::get('/sitemap/raw', [PageController::class, 'sitemapXml']);
+Route::get('/status', [PageController::class, 'status'])->name('pages.status');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [PageController::class, 'dashboard'])
