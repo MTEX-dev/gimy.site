@@ -9,6 +9,8 @@ use App\Http\Controllers\Settings\ProfileController as SettingsProfileController
 use App\Http\Controllers\Settings\PasswordController as SettingsPasswordController;
 use App\Http\Controllers\SlugController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Panel\OrganisationController as PanelOrganisationController;
+use App\Http\Controllers\Panel\SiteController as PanelSiteController;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -24,7 +26,6 @@ Route::get('locale/{locale}', [PageController::class, 'setLocale'])->name('local
 Route::get('/sitemap', [PageController::class, 'sitemap'])->name('pages.sitemap');
 Route::get('/sitemap.xml', [PageController::class, 'sitemapXml'])->name('pages.sitemap.xml');
 Route::get('/sitemap/raw', [PageController::class, 'sitemapXml']);
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [PageController::class, 'dashboard'])
@@ -44,10 +45,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/settings/sessions/logout-others', [SettingsSessionController::class, 'destroyAllOthers'])->name('settings.sessions.destroy-others');
 });
 
-
-
 Route::get('/auth/{provider}/redirect', [AuthProviderController::class, 'redirect'])->name('auth.provider.redirect');
 Route::get('/auth/{provider}/callback', [AuthProviderController::class, 'callback'])->name('auth.provider.callback');
+
 /*
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -55,4 +55,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 */
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+Route::middleware('auth')->prefix('/{organisation:slug}')->name('panel.')->group(function () {
+    Route::get('/', [PanelOrganisationController::class, 'overview'])->name('overview');
+    Route::get('/members', [PanelOrganisationController::class, 'members'])->name('members');
+    Route::get('/sites', [PanelOrganisationController::class, 'sites'])->name('sites');
+    Route::get('/settings', [PanelOrganisationController::class, 'settings'])->name('settings');
+
+    Route::prefix('/{site:slug}')->name('site.')->group(function () {
+        Route::get('/', [PanelSiteController::class, 'overview'])->name('overview');
+        Route::get('/files', [PanelSiteController::class, 'files'])->name('files');
+        Route::get('/backups', [PanelSiteController::class, 'backups'])->name('backups');
+        Route::get('/visits', [PanelSiteController::class, 'visits'])->name('visits');
+    });
+});
+
+Route::get('/{site:slug}/site-preview', [PanelSiteController::class, 'sitePreview'])->name('site.preview');
