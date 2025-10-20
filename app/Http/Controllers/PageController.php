@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\{User, Site, SiteVisit, Organisation, Session, SiteBackup};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -50,7 +50,7 @@ class PageController extends Controller
 
     public function dashboard()
     {
-        $organisations = Auth::user()->organisations();
+        $organisations = Auth::user()->organisations()->get();
 
         return view('pages.dashboard', compact('organisations'));
     }

@@ -29,7 +29,7 @@
                     <h4 class="text-xl font-semibold mb-4">Sites</h4>
                     @if ($organisation->sites->isEmpty())
                         <p class="text-gray-600 dark:text-gray-400">This organisation has no sites yet.</p>
-                        <a href="#" class="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <a href="#" class="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gimysite-600 hover:bg-gimysite-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gimysite-500">
                             Create New Site
                         </a>
                     @else
@@ -38,7 +38,7 @@
                                 <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg shadow">
                                     <h5 class="text-lg font-bold">{{ $site->name }}</h5>
                                     <p class="text-gray-600 dark:text-gray-400">{{ $site->url }}</p>
-                                    <a href="#" class="mt-2 inline-block text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200">View Site Details</a>
+                                    <a href="#" class="mt-2 inline-block text-gimysite-600 hover:text-gimysite-900 dark:text-gimysite-400 dark:hover:text-gimysite-200">View Site Details</a>
                                 </div>
                             @endforeach
                         </div>

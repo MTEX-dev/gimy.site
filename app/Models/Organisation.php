@@ -31,4 +31,13 @@ class Organisation extends Model
     {
         return $this->belongsToMany(User::class, 'organisation_members');
     }
+
+    public function getDisplayableAvatar()
+    {
+        if ($this->avatar_path) {
+            return Storage::url($this->avatar_path);
+        }
+        
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) .  '&color=FFFFFF&background=111827';
+    }
 }
