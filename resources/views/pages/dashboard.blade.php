@@ -55,13 +55,22 @@
                                 {{ __('You don\'t have any organisations yet.') }}
                             </p>
                             <a href="#"
-                                class="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                class="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gimysite-600 hover:bg-gimysite-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gimysite-500">
                                 {{ __('Create New Organisation') }}
                             </a>
                         </div>
                     @endif
                 </div>
             </div>
+
+            <div class="border-t border-gray-100 dark:border-gray-600"></div>
+            <a
+              @click.prevent="createOrganizationModal = true"
+              class="block px-4 py-2 text-sm text-gimysite-600 dark:text-gimysite-400 hover:bg-gray-100 dark:hover:bg-gray-600"
+              >{{ __('panel.new_name_item', ['item' => __('panel.organisations.item_name')]) }}</a
+            >
+            
+            @include('components.panel.create-organisation-modal')
         </div>
     </div>
 @endsection

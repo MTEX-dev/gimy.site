@@ -87,12 +87,15 @@
                         >
                     @endif
                 @endforeach
-                <div class="border-t border-gray-100 dark:border-gray-600"></div>
+                <!--div class="border-t border-gray-100 dark:border-gray-600"></div>
                 <a
                   href="#"
                   class="block px-4 py-2 text-sm text-gimysite-600 dark:text-gimysite-400 hover:bg-gray-100 dark:hover:bg-gray-600"
-                  >+ Create New Organization</a
-                >
+                  >{{  __('panel.new_name_item', ['item' => __('panel.organisations.item_name')]) }}</a
+                -->
+                <div class="border-t border-gray-100 dark:border-gray-600"></div>
+                <a href="#" @click.prevent="createOrganizationModal = true" class="block px-4 py-2 text-sm text-gimysite-600 dark:text-gimysite-400 hover:bg-gray-100 dark:hover:bg-gray-600">{{ __('panel.new_name_item', ['item' => __('panel.organisations.item_name')]) }}</a>
+                @include('components.panel.create-organisation-modal')
               </div>
             </div>
           </div>

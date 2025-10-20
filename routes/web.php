@@ -59,18 +59,22 @@ Route::middleware('auth')->group(function () {
 */
 require __DIR__ . '/auth.php';
 
-Route::middleware('auth')->prefix('/org/{organisation:slug}')->name('panel.')->group(function () {
-    Route::get('/', [PanelOrganisationController::class, 'overview'])->name('overview');
-    Route::get('/members', [PanelOrganisationController::class, 'members'])->name('members');
-    Route::get('/sites', [PanelOrganisationController::class, 'sites'])->name('sites');
-    Route::get('/settings', [PanelOrganisationController::class, 'settings'])->name('settings');
+Route::middleware('auth')->name('panel.')->group(function () {
+    //Route::post('/org/create', [PanelOrganisationController::class, 'store'])->name('organisations.store');
+    Route::post('/org/create', [PanelOrganisationController::class, 'store'])->name('organisations.create');
+    Route::prefix('/org/{organisation:slug}')->group(function () {
+        Route::get('/', [PanelOrganisationController::class, 'overview'])->name('overview');
+        Route::get('/members', [PanelOrganisationController::class, 'members'])->name('organisations.members');
+        Route::get('/sites', [PanelOrganisationController::class, 'sites'])->name('organisations.sites');
+        Route::get('/settings', [PanelOrganisationController::class, 'settings'])->name('organisations.settings');
 
-    Route::get('/sites/create', [PanelSiteController::class, 'create'])->name('sites.create');
-    Route::prefix('/sites/{site:slug}')->name('sites.')->group(function () {
-        Route::get('/', [PanelSiteController::class, 'overview'])->name('overview');
-        Route::get('/files', [PanelSiteController::class, 'files'])->name('files');
-        Route::get('/backups', [PanelSiteController::class, 'backups'])->name('backups');
-        Route::get('/visits', [PanelSiteController::class, 'visits'])->name('visits');
+        Route::get('/sites/new', [PanelSiteController::class, 'create'])->name('sites.create');
+        Route::prefix('/sites/{site:slug}')->name('sites.')->group(function () {
+            Route::get('/', [PanelSiteController::class, 'overview'])->name('overview');
+            Route::get('/files', [PanelSiteController::class, 'files'])->name('files');
+            Route::get('/backups', [PanelSiteController::class, 'backups'])->name('backups');
+            Route::get('/visits', [PanelSiteController::class, 'visits'])->name('visits');
+        });
     });
 });
 
