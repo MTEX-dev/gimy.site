@@ -63,14 +63,11 @@
                 </div>
             </div>
 
-            <div class="border-t border-gray-100 dark:border-gray-600"></div>
-            <a
-              @click.prevent="createOrganizationModal = true"
-              class="block px-4 py-2 text-sm text-gimysite-600 dark:text-gimysite-400 hover:bg-gray-100 dark:hover:bg-gray-600"
-              >{{ __('panel.new_name_item', ['item' => __('panel.organisations.item_name')]) }}</a
-            >
+            <button popovertarget="create-organization-popover" class="px-4 py-2 bg-gimysite-600 text-white rounded-md">
+              {{ __('panel.create_name_item', ['item' => __('panel.organisations.item_name')]) }}
+            </button>
             
-            @include('components.panel.create-organisation-modal')
+            @include('components.panel.create-organisation-popover')
         </div>
     </div>
 @endsection
