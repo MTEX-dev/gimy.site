@@ -51,4 +51,5 @@ return [
         'avatar' => 'Avatar',
         'sessions' => 'Browser Sessions',
     ],
+    'locale' => ['title' => 'Locale',],
 ];
