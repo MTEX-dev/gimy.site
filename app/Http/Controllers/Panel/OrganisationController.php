@@ -15,4 +15,9 @@ class OrganisationController extends Controller
 
         return view('panel.organisations.overview', compact('organisation'));
     }
+
+    public function settings(Organisation $organisation)
+    {
+        return view('panel.organisations.settings', compact('organisation'));
+    }
 }

@@ -1,12 +1,10 @@
 <nav
   x-data="{ open: false }"
-  class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700"
+  class="bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 shadow-sm"
 >
-  <!-- Primary Navigation Menu -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16">
       <div class="flex items-center">
-        <!-- Logo -->
         <div class="shrink-0 flex items-center">
           <a href="{{ route('dashboard') }}">
             <x-application-logo
@@ -15,20 +13,15 @@
           </a>
         </div>
 
-        <!-- Breadcrumb Navigation -->
         <div class="ml-4 flex items-center space-x-2">
           @if (isset($organisation))
-          <!-- Organization Level Breadcrumb -->
-          <div
-            x-data="{ open: false }"
-            class="relative flex items-center"
-          >
+          <div x-data="{ open: false }" class="relative flex items-center">
             <button
               @click="open = !open"
-              class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+              class="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gimysite-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
             >
               <span
-                class="relative inline-grid shrink-0 align-middle *:col-start-1 *:row-start-1 bg-[#fff1f4] text-[#e44e67] rounded-sm *:rounded-sm"
+                class="relative inline-grid shrink-0 align-middle *:col-start-1 *:row-start-1 bg-gimysite-100 text-gimysite-700 dark:bg-gimysite-700 dark:text-gimysite-100 rounded-md *:rounded-md"
               >
                 <svg
                   class="fill-current text-[48px] font-medium uppercase select-none w-5 h-5"
@@ -48,7 +41,7 @@
                   </text>
                 </svg>
                 <span
-                  class="relative border forced-colors:outline border-[#ffd8db]"
+                  class="relative border border-gimysite-200 dark:border-gimysite-600"
                   aria-hidden="true"
                 ></span>
               </span>
@@ -97,7 +90,7 @@
                 <div class="border-t border-gray-100 dark:border-gray-600"></div>
                 <a
                   href="#"
-                  class="block px-4 py-2 text-sm text-indigo-600 dark:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-600"
+                  class="block px-4 py-2 text-sm text-gimysite-600 dark:text-gimysite-400 hover:bg-gray-100 dark:hover:bg-gray-600"
                   >+ Create New Organization</a
                 >
               </div>
@@ -106,17 +99,13 @@
 
           @if (isset($site))
           <span class="text-gray-400 dark:text-gray-600">/</span>
-          <!-- Site Level Breadcrumb -->
-          <div
-            x-data="{ open: false }"
-            class="relative flex items-center"
-          >
+          <div x-data="{ open: false }" class="relative flex items-center">
             <button
               @click="open = !open"
-              class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+              class="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gimysite-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
             >
               <span
-                class="relative inline-grid shrink-0 align-middle *:col-start-1 *:row-start-1 bg-[#fff1f4] text-[#e44e67] rounded-sm *:rounded-sm"
+                class="relative inline-grid shrink-0 align-middle *:col-start-1 *:row-start-1 bg-teal-100 text-teal-700 dark:bg-teal-700 dark:text-teal-100 rounded-md *:rounded-md"
               >
                 <svg
                   class="fill-current text-[48px] font-medium uppercase select-none w-5 h-5"
@@ -136,7 +125,7 @@
                   </text>
                 </svg>
                 <span
-                  class="relative border forced-colors:outline border-[#ffd8db]"
+                  class="relative border border-teal-200 dark:border-teal-600"
                   aria-hidden="true"
                 ></span>
               </span>
@@ -173,7 +162,6 @@
                   >Current Site</a
                 >
                 <div class="border-t border-gray-100 dark:border-gray-600"></div>
-                <!-- Example other sites -->
                 <a
                   href="#"
                   class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
@@ -187,7 +175,7 @@
                 <div class="border-t border-gray-100 dark:border-gray-600"></div>
                 <a
                   href="#"
-                  class="block px-4 py-2 text-sm text-indigo-600 dark:text-indigo-400 hover:bg-gray-100 dark:hover:bg-gray-600"
+                  class="block px-4 py-2 text-sm text-gimysite-600 dark:text-gimysite-400 hover:bg-gray-100 dark:hover:bg-gray-600"
                   >+ Create New Site</a
                 >
               </div>
@@ -195,27 +183,18 @@
           </div>
           @endif @endif
         </div>
-
-        <!-- Navigation Links -->
-        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-          <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-            {{ __('Dashboard') }}
-          </x-nav-link>
-        </div>
       </div>
 
       <div class="flex items-center ml-auto">
-        <!--x-locale-switcher /-->
-        <x-theme-toggle />
+        @include('components.theme-toggle')
 
-        <!-- Search Button -->
         <div class="sm:flex sm:items-center sm:ml-6">
           <button
             @click="$dispatch('toggle-search-modal')"
-            class="flex items-center p-2 bg-gray-100 dark:bg-gray-700 rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-white"
+            class="flex items-center p-2 bg-gray-100 dark:bg-gray-700 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-gray-800 dark:hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gimysite-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900 group"
           >
             <svg
-              class="w-5 h-5"
+              class="w-5 h-5 group-hover:scale-110 transition-transform duration-200"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -228,14 +207,14 @@
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               ></path>
             </svg>
-            <span class="ml-2">Search...</span>
-            <kbd class="ml-2 text-xs border rounded px-1.5 py-0.5"
+            <span class="ml-2 hidden sm:inline text-sm">Search...</span>
+            <kbd
+              class="ml-2 hidden sm:inline-flex text-xs border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 rounded px-1.5 py-0.5 shadow-sm"
               >⌘K</kbd
             >
           </button>
         </div>
 
-        
         @include('components.panel.user-dropdown')
       </div>
     </div>

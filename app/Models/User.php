@@ -73,6 +73,6 @@ class User extends Authenticatable
             return $this->provider_avatar;
         }
 
-        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) .  '&color=FFFFFF&background=111827';
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) .  '&color=111827&background=BBF7D0';
     }
 }
