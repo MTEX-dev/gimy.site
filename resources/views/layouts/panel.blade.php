@@ -7,11 +7,11 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    @include('layouts.partials.head-assets')
+    @vite(['resources/css/app.css', 'resources/js/app.js']) @stack('head')
 </head>
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        @include('layouts.panel.navbar')
+        @include('components.panel.navbar')
 
         @hasSection('header')
             <header class="bg-white dark:bg-gray-800 shadow">
@@ -25,10 +25,10 @@
             @yield('content')
         </main>
 
-        @include('layouts.panel.footer')
+        @include('components.panel.footer')
     </div>
 
-    @include('layouts.panel.search-modal')
+    @include('components.panel.search-modal')
 
     @stack('scripts')
 </body>

@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
+        /*
         $exceptions->renderable(function (NotFoundHttpException $e, $request) {
             if (!$request->expectsJson()) {
                 return response()->view('pages.error', ['code' => 404], 404);
@@ -32,4 +33,5 @@ return Application::configure(basePath: dirname(__DIR__))
                 return response()->view('pages.error', ['code' => $statusCode], $statusCode);
             }
         });
+        */
     })->create();

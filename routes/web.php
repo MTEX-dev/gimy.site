@@ -71,4 +71,4 @@ Route::middleware('auth')->prefix('/{organisation:slug}')->name('panel.')->group
     });
 });
 
-Route::get('/{site:slug}/site-preview', [PanelSiteController::class, 'sitePreview'])->name('site.preview');
+Route::get('/site-preview/{site:slug}', [PanelSiteController::class, 'sitePreview'])->name('site.preview');
