@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{User, Site, SiteVisit};
+use App\Models\{User, Site, SiteVisit, Organisation, Session, SiteBackup};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
@@ -79,7 +79,6 @@ class PageController extends Controller
         return response()->view('pages.sitemap_xml', compact('pages', 'legalSections'))
             ->header('Content-Type', 'application/xml');
     }
-
     public function status()
     {
         try {
@@ -89,11 +88,23 @@ class PageController extends Controller
             $dbStatus = 'Error: ' . $e->getMessage();
         }
 
-        $sitesDisk = Storage::disk('sites');
-        $files = $sitesDisk->allFiles();
+        $models = [
+            'organisation' => Organisation::count(),
+            'site' => Site::count(),
+            'site_backup' => SiteBackup::count(),
+            'site_visit' => SiteVisit::count(),
+            'user' => User::count(),
+            'session' => Session::count(),
+        ];
+
+        $disk = Storage::disk('sites');
+        $files = $disk->allFiles();
         $totalSize = 0;
         foreach ($files as $file) {
-            $totalSize += $sitesDisk->size($file);
+            try {
+                $totalSize += $disk->size($file);
+            } catch (\Throwable $e) {
+            }
         }
 
         $storageStatus = [
@@ -102,6 +113,51 @@ class PageController extends Controller
             'total_size' => round($totalSize / 1024 / 1024, 2) . ' MB',
         ];
 
-        return view('pages.status', compact('dbStatus', 'storageStatus'));
+        return view('pages.status', compact('dbStatus', 'storageStatus', 'models'));
+    }
+
+    public function apiStatus(Request $request)
+    {
+        $uptime = null;
+        try {
+            DB::connection()->getPdo();
+            $db = ['status' => 'ok'];
+        } catch (\Exception $e) {
+            $db = ['status' => 'error', 'message' => $e->getMessage()];
+        }
+
+        $disk = Storage::disk('sites');
+        $files = $disk->allFiles();
+        $totalSize = 0;
+        foreach ($files as $file) {
+            try {
+                $totalSize += $disk->size($file);
+            } catch (\Throwable $e) {
+            }
+        }
+
+        $models = [
+            'organisation' => Organisation::count(),
+            'site' => Site::count(),
+            'site_backup' => SiteBackup::count(),
+            'site_visit' => SiteVisit::count(),
+            'user' => User::count(),
+            'session' => Session::count(),
+        ];
+
+        $payload = [
+            'app' => config('app.name'),
+            'time' => now()->toIso8601String(),
+            'database' => $db,
+            'storage' => [
+                'disk' => 'sites',
+                'total_files' => count($files),
+                'total_size_bytes' => $totalSize,
+                'total_size_human' => round($totalSize / 1024 / 1024, 2) . ' MB',
+            ],
+            'models' => $models,
+        ];
+
+        return response()->json($payload);
     }
 }
