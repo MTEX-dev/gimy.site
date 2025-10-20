@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [PageController::class, 'dashboard'])
         //->middleware('verified')
         ->name('dashboard');
+    Route::get('/organisations', [PanelOrganisationController::class, 'overview'])->name('panel.organisations.overview');
     Route::get('/settings/profile', [SettingsProfileController::class, 'edit'])->name('settings.profile');
     Route::patch('/settings/profile', [SettingsProfileController::class, 'update'])->name('settings.profile.update');
     Route::delete('/settings/profile', [SettingsProfileController::class, 'destroy'])->name('settings.profile.destroy');
@@ -57,13 +58,14 @@ Route::middleware('auth')->group(function () {
 */
 require __DIR__ . '/auth.php';
 
-Route::middleware('auth')->prefix('/{organisation:slug}')->name('panel.')->group(function () {
+Route::middleware('auth')->prefix('/org/{organisation:slug}')->name('panel.')->group(function () {
     Route::get('/', [PanelOrganisationController::class, 'overview'])->name('overview');
     Route::get('/members', [PanelOrganisationController::class, 'members'])->name('members');
     Route::get('/sites', [PanelOrganisationController::class, 'sites'])->name('sites');
     Route::get('/settings', [PanelOrganisationController::class, 'settings'])->name('settings');
 
-    Route::prefix('/{site:slug}')->name('site.')->group(function () {
+    Route::get('/sites/create', [PanelSiteController::class, 'create'])->name('sites.create');
+    Route::prefix('/sites/{site:slug}')->name('sites.')->group(function () {
         Route::get('/', [PanelSiteController::class, 'overview'])->name('overview');
         Route::get('/files', [PanelSiteController::class, 'files'])->name('files');
         Route::get('/backups', [PanelSiteController::class, 'backups'])->name('backups');

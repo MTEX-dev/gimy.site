@@ -4,26 +4,13 @@ namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Organisation, OrganisationMember, Site};
 use Illuminate\Support\Facades\Auth;
+use App\Models\Organisation;
 
 class OrganisationController extends Controller
 {
-    public function overview(Organisation $organisation = null)
+    public function overview(Organisation $organisation)
     {
-        if (!$organisation) {
-            $organisation = Auth::user()
-                ->organisations()
-                ->first();
-        }
-
-        if (!$organisation) {
-            abort(
-                404,
-                'No organisation found. Please create one or join an existing one.'
-            );
-        }
-
         $organisation->load('sites');
 
         return view('panel.organisations.overview', compact('organisation'));

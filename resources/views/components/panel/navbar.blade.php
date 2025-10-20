@@ -85,17 +85,15 @@
                   >Current Organization</a
                 >
                 <div class="border-t border-gray-100 dark:border-gray-600"></div>
-                <!-- Example other organizations -->
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
-                  >Other Org 1</a
-                >
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
-                  >Other Org 2</a
-                >
+                @foreach ($organisations as $org)
+                    @if ($org->id !== $organisation->id)
+                        <a
+                        href="{{ route('panel.overview', ['organisation' => $org]) }}"
+                        class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
+                        >{{ $org->name }}</a
+                        >
+                    @endif
+                @endforeach
                 <div class="border-t border-gray-100 dark:border-gray-600"></div>
                 <a
                   href="#"

@@ -81,9 +81,11 @@
                         @endguest
                     </div>
 
+                    @guest
                     @include('components.locale-switcher')
+                    @endguest
                     @include('components.theme-toggle')
-
+                    @include('components.panel.user-dropdown')
                     <button
                         @click="mobileMenuOpen = !mobileMenuOpen"
                         class="z-50 p-2 text-gray-700 transition-colors dark:text-gray-300 lg:hidden"

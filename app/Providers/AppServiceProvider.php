@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('components.panel.navbar', function ($view) {
+            if (Auth::check()) {
+                $view->with('organisations', Auth::user()->organisations()->with('sites')->get());
+            } else {
+                $view->with('organisations', collect());
+            }
+        });
     }
 }
