@@ -40,7 +40,7 @@ class AvatarController extends Controller
             'avatar_path' => $request->file('avatar')->store('avatars', 'public'),
         ]);
 
-        return Redirect::route('settings.avatar')->with('status', 'avatar-updated');
+        return Redirect::route('settings.avatar')->with('success', __('settings.notifications.avatar_updated'));
     }
 
     /**
@@ -55,6 +55,6 @@ class AvatarController extends Controller
             $user->update(['avatar_path' => null]);
         }
 
-        return Redirect::route('settings.avatar')->with('status', 'avatar-removed');
+        return Redirect::route('settings.avatar')->with('success', __('settings.notifications.avatar_removed'));
     }
 }

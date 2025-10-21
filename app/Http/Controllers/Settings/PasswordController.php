@@ -36,6 +36,6 @@ class PasswordController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return Redirect::route('settings.password')->with('status', 'password-updated');
+        return Redirect::route('settings.password')->with('success', __('settings.notifications.password_updated'));
     }
 }

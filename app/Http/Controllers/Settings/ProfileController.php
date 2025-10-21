@@ -35,7 +35,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('settings.profile')->with('status', 'profile-updated');
+        return Redirect::route('settings.profile')->with('success', __('settings.notifications.profile_updated'));
     }
 
     /**

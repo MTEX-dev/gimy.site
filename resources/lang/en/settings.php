@@ -51,5 +51,13 @@ return [
         'avatar' => 'Avatar',
         'sessions' => 'Browser Sessions',
     ],
-    'locale' => ['title' => 'Locale',],
+    'locale' => ['title' => 'Locale'],
+    'notifications' => [
+        'profile_updated' => 'Profile information updated successfully.',
+        'password_updated' => 'Password updated successfully.',
+        'avatar_updated' => 'Avatar updated successfully.',
+        'avatar_removed' => 'Avatar removed successfully.',
+        'session_invalidated' => 'Session invalidated successfully.',
+        'all_other_sessions_invalidated' => 'All other sessions invalidated successfully.',
+    ],
 ];

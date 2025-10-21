@@ -9,6 +9,7 @@ use App\Models\Organisation;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response;
 
 class OrganisationController extends Controller
 {
@@ -43,16 +44,26 @@ class OrganisationController extends Controller
 
         $organisation->users()->attach(Auth::id(), ['role' => 'admin']);
 
-        return redirect()->route('panel.overview', $organisation);
+        return redirect()
+            ->route('panel.overview', $organisation)
+            ->with('success', __('panel.organisations.create_success'));
     }
 
     public function settings(Organisation $organisation)
     {
+        if (!$organisation->users()->where('user_id', Auth::id())->wherePivot('role', 'admin')->exists()) {
+            abort(Response::HTTP_FORBIDDEN, __('pages.errors.403.message'));
+        }
+
         return view('panel.organisations.settings', compact('organisation'));
     }
 
     public function update(Request $request, Organisation $organisation)
     {
+        if (!$organisation->users()->where('user_id', Auth::id())->wherePivot('role', 'admin')->exists()) {
+            return back()->with('error', __('pages.errors.403.message'));
+        }
+
         $validatedData = $request->validate([
             'name' => 'required|min:4|max:20',
             'email' => 'nullable|email',
@@ -67,6 +78,10 @@ class OrganisationController extends Controller
 
     public function destroy(Request $request, Organisation $organisation)
     {
+        if (!$organisation->users()->where('user_id', Auth::id())->wherePivot('role', 'admin')->exists()) {
+            return back()->with('error', __('pages.errors.403.message'));
+        }
+
         $request->validate([
             'slug_confirmation' => 'required|string',
             'password' => [
@@ -102,6 +117,10 @@ class OrganisationController extends Controller
 
     public function addMember(Request $request, Organisation $organisation)
     {
+        if (!$organisation->users()->where('user_id', Auth::id())->wherePivot('role', 'admin')->exists()) {
+            return back()->with('error', __('pages.errors.403.message'));
+        }
+
         $validatedData = $request->validate([
             'email' => 'required|email|exists:users,email',
             'role' => 'required|in:admin,member',
@@ -125,6 +144,10 @@ class OrganisationController extends Controller
         Organisation $organisation,
         User $user,
     ) {
+        if (!$organisation->users()->where('user_id', Auth::id())->wherePivot('role', 'admin')->exists()) {
+            return back()->with('error', __('pages.errors.403.message'));
+        }
+
         $validatedData = $request->validate([
             'role' => 'required|in:admin,member',
         ]);
@@ -138,6 +161,10 @@ class OrganisationController extends Controller
 
     public function removeMember(Organisation $organisation, User $user)
     {
+        if (!$organisation->users()->where('user_id', Auth::id())->wherePivot('role', 'admin')->exists()) {
+            return back()->with('error', __('pages.errors.403.message'));
+        }
+
         if (Auth::id() === $user->id) {
             return back()->withErrors([
                 'message' => __('panel.organisations.cannot_remove_self'),

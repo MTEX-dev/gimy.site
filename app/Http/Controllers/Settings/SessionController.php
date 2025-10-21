@@ -39,7 +39,7 @@ class SessionController extends Controller
         DB::table('sessions')->where('id', $id)->where('user_id', Auth::id())->delete();
 
         return redirect()->route('settings.sessions.index')
-            ->with('status', 'Session invalidated successfully.');
+            ->with('success', __('settings.notifications.session_invalidated'));
     }
 
     public function destroyAllOthers(Request $request)
@@ -50,6 +50,6 @@ class SessionController extends Controller
             ->delete();
 
         return redirect()->route('settings.sessions.index')
-            ->with('status', 'All other sessions invalidated successfully.');
+            ->with('success', __('settings.notifications.all_other_sessions_invalidated'));
     }
 }

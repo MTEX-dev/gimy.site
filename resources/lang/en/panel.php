@@ -14,6 +14,7 @@ return [
         'delete_confirm_title' => 'Confirm Organisation Deletion',
         'delete_popover_message' => 'Please type the organisation\'s slug to confirm you want to permanently delete this organisation:',
         'slug_confirmation_label' => 'Organisation Slug',
+        'create_success' => 'Organisation created successfully.',
         'update_success' => 'Organisation settings updated.',
         'password_mismatch' => 'The provided password does not match your current password.',
         'slug_mismatch' => 'The provided slug does not match the organisation\'s slug.',

@@ -43,6 +43,7 @@ class PageController extends Controller
     {
         if (in_array($locale, array_keys(config('app.locales')))) {
             session(['locale' => $locale]);
+            session()->flash('success', __('strings.notifications.locale_switched', ['locale' => config('app.locales')[$locale]]));
         }
 
         return redirect()->back();
