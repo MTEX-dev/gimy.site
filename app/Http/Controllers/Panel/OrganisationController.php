@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Organisation;
 use Illuminate\Support\Str;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class OrganisationController extends Controller
 {
@@ -39,7 +41,6 @@ class OrganisationController extends Controller
             'slug' => $slug,
         ]);
 
-        //$organisation->users()->attach(Auth::id(), ['role' => 'ownder']);
         $organisation->users()->attach(Auth::id(), ['role' => 'admin']);
 
         return redirect()->route('panel.overview', $organisation);
@@ -62,8 +63,16 @@ class OrganisationController extends Controller
         return redirect()->route('panel.organisations.settings', $organisation)->with('success', 'Organisation settings updated.');
     }
 
-    public function destroy(Organisation $organisation)
+    public function destroy(Request $request, Organisation $organisation)
     {
+        $request->validate([
+            'password' => ['required', 'string', function ($attribute, $value, $fail) {
+                if (!Hash::check($value, Auth::user()->password)) {
+                    $fail('The provided password does not match your current password.');
+                }
+            }],
+        ]);
+
         $organisation->delete();
 
         return redirect()->route('panel.dashboard')->with('success', 'Organisation deleted.');
@@ -107,6 +116,10 @@ class OrganisationController extends Controller
 
     public function removeMember(Organisation $organisation, User $user)
     {
+        if (Auth::id() === $user->id) {
+            return back()->withErrors(['message' => 'You cannot remove yourself from the organisation.']);
+        }
+
         $organisation->users()->detach($user->id);
 
         return back()->with('success', 'Member removed successfully.');

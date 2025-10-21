@@ -9,6 +9,22 @@
 @section('content')
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if (session('success'))
+                <div class="mb-4 p-4 rounded-md bg-green-100 dark:bg-green-700 text-green-800 dark:text-green-200">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="mb-4 p-4 rounded-md bg-red-100 dark:bg-red-700 text-red-800 dark:text-red-200">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h3 class="text-xl font-semibold mb-4">Update Organisation Information</h3>
@@ -42,10 +58,18 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h3 class="text-xl font-semibold mb-4">Delete Organisation</h3>
-                    <p class="text-gray-600 dark:text-gray-400 mb-4">Once you delete an organisation, all of its sites and data will be permanently deleted. Please be sure you want to do this.</p>
-                    <form action="{{ route('panel.organisations.destroy', $organisation) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this organisation? This action cannot be undone.');">
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">Once you delete an organisation, all of its sites and data will be permanently deleted. Please type your password to confirm you want to permanently delete this organisation.</p>
+                    <form action="{{ route('panel.organisations.destroy', $organisation) }}" method="POST">
                         @csrf
                         @method('DELETE')
+                        <div class="mb-4">
+                            <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Your Password</label>
+                            <input type="password" name="password" id="password" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
+                            @error('password')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                            @enderror
+                        </div>
                         <button type="submit"
                             class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                             Delete Organisation

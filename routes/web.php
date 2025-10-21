@@ -27,13 +27,22 @@ Route::get('/sitemap', [PageController::class, 'sitemap'])->name('pages.sitemap'
 Route::get('/sitemap.xml', [PageController::class, 'sitemapXml'])->name('pages.sitemap.xml');
 Route::get('/sitemap/raw', [PageController::class, 'sitemapXml']);
 Route::get('/status', [PageController::class, 'status'])->name('pages.status');
+Route::get('/dashboard', [PageController::class, 'dashboard'])->name('pages.dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [PageController::class, 'dashboard'])
         //->middleware('verified')
         ->name('dashboard');
-    Route::get('/organisations', [PanelOrganisationController::class, 'overview'])->name('panel.organisations.overview');
-    Route::get('/settings/profile', [SettingsProfileController::class, 'edit'])->name('settings.profile');
+    Route::get('/organisations', function () {
+        $userOrganisations = Auth::user()->organisations;
+
+        if ($userOrganisations->count() === 1) {
+            return redirect()->route('panel.overview', $userOrganisations->first());
+        } elseif ($userOrganisations->count() > 1) {
+            return redirect()->route('dashboard')->with('error', 'You belong to multiple organisations. Please select one from the dashboard.');
+        }
+        return redirect()->route('pages.dashboard');
+    })->name('panel.organisations.overview');    Route::get('/settings/profile', [SettingsProfileController::class, 'edit'])->name('settings.profile');
     Route::patch('/settings/profile', [SettingsProfileController::class, 'update'])->name('settings.profile.update');
     Route::delete('/settings/profile', [SettingsProfileController::class, 'destroy'])->name('settings.profile.destroy');
 
@@ -75,6 +84,7 @@ Route::middleware('auth')->name('panel.')->group(function () {
         Route::put('/members/{user}', [PanelOrganisationController::class, 'updateMemberRole'])->name('organisations.members.updateRole');
         Route::delete('/members/{user}', [PanelOrganisationController::class, 'removeMember'])->name('organisations.members.remove');
 
+
         Route::get('/sites', [PanelOrganisationController::class, 'sites'])->name('organisations.sites');
 
         Route::get('/sites/new', [PanelSiteController::class, 'create'])->name('sites.create');
@@ -86,5 +96,4 @@ Route::middleware('auth')->name('panel.')->group(function () {
         });
     });
 });
-
 Route::get('/site-preview/{site:slug}', [PanelSiteController::class, 'sitePreview'])->name('site.preview');
