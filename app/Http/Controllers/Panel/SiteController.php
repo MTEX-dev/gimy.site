@@ -3,9 +3,49 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreSiteRequest;
+use App\Models\Organisation;
+use App\Models\Site;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class SiteController extends Controller
 {
-    //
+    public function create(Organisation $organisation)
+    {
+        $this->authorize('addSite', $organisation);
+
+        return view('panel.sites.create', compact('organisation'));
+    }
+
+    public function store(StoreSiteRequest $request, Organisation $organisation)
+    {
+        $this->authorize('addSite', $organisation);
+
+        $validatedData = $request->validated();
+
+        $baseSlug = Str::slug($validatedData['name']);
+        $slug = $baseSlug;
+
+        $originalSlug = $baseSlug;
+        $counter = 1;
+        while (Site::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . Str::random(5);
+        }
+
+        $site = new Site([
+            'name' => $validatedData['name'],
+            'slug' => $slug,
+            'custom_domain' => $validatedData['custom_domain'] ?? null,
+            'user_id' => Auth::id(),
+            'organisation_id' => $organisation->id,
+            'status' => 'pending',
+            'storage_path' => 'sites/' . $slug,
+        ]);
+
+        $site->save();
+
+        return redirect()->route('panel.organisations.overview', $organisation)->with('success', 'Site created successfully.');
+    }
 }

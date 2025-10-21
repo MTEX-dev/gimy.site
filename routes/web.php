@@ -84,6 +84,8 @@ Route::middleware('auth')->name('panel.')->group(function () {
         Route::put('/members/{user}', [PanelOrganisationController::class, 'updateMemberRole'])->name('organisations.members.updateRole');
         Route::delete('/members/{user}', [PanelOrganisationController::class, 'removeMember'])->name('organisations.members.remove');
 
+        Route::get('/sites/create', [PanelSiteController::class, 'create'])->name('organisations.sites.create');
+        Route::post('/sites', [PanelSiteController::class, 'store'])->name('organisations.sites.store');
 
         Route::get('/sites', [PanelOrganisationController::class, 'sites'])->name('organisations.sites');
 

@@ -26,12 +26,17 @@
                         </div>
                     </div>
 
-                    <h4 class="text-xl font-semibold mb-4">Sites</h4>
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="text-xl font-semibold">Sites</h4>
+                        @can('addSite', $organisation)
+                            <a href="{{ route('panel.organisations.sites.create', $organisation) }}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gimysite-600 hover:bg-gimysite-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gimysite-500">
+                                Create New Site
+                            </a>
+                        @endcan
+                    </div>
+
                     @if ($organisation->sites->isEmpty())
                         <p class="text-gray-600 dark:text-gray-400">This organisation has no sites yet.</p>
-                        <a href="#" class="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gimysite-600 hover:bg-gimysite-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gimysite-500">
-                            Create New Site
-                        </a>
                     @else
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             @foreach ($organisation->sites as $site)
