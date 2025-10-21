@@ -24,13 +24,17 @@ class OrganisationController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate(['name' => 'required|min:4|max:20',]);
+        $validatedData = $request->validate([
+            'name' => 'required|min:4|max:20',
+        ]);
 
         $baseSlug = Str::slug($validatedData['name']);
         $slug = $baseSlug;
 
+        $originalSlug = $baseSlug;
+        $counter = 1;
         while (Organisation::where('slug', $slug)->exists()) {
-            $slug = $baseSlug . '-' . Str::random(5);
+            $slug = $originalSlug . '-' . Str::random(5);
         }
 
         $organisation = Organisation::create([
@@ -43,6 +47,6 @@ class OrganisationController extends Controller
         //$organisation->users()->attach(Auth::id(), ['role' => 'ownder']);
         $organisation->users()->attach(Auth::id(), ['role' => 'admin']);
 
-        return redirect()->route('panel.organisations.overview', $organisation);
+        return redirect()->route('panel.overview', $organisation);
     }
 }

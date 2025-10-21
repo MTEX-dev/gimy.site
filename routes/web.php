@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 Route::middleware('auth')->name('panel.')->group(function () {
-    //Route::post('/org/create', [PanelOrganisationController::class, 'store'])->name('organisations.store');
+    Route::post('/org/store', [PanelOrganisationController::class, 'store'])->name('organisations.store');
     Route::post('/org/create', [PanelOrganisationController::class, 'store'])->name('organisations.create');
     Route::prefix('/org/{organisation:slug}')->group(function () {
         Route::get('/', [PanelOrganisationController::class, 'overview'])->name('overview');

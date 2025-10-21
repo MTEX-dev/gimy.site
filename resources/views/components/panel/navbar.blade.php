@@ -67,7 +67,7 @@
             >
               <div class="py-1">
                 <a
-                  href="{{ route('panel.overview', ['organisation' => $organisation]) }}"
+                  href="{{ route('panel.overview', $organisation) }}"
                   class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
                   >Current Organization</a
                 >
@@ -81,10 +81,10 @@
                         >
                     @endif
                 @endforeach
-                
+
 
                 <div class="border-t border-gray-100 dark:border-gray-600"></div>
-                
+
 
                 <div class="border-t border-gray-100 dark:border-gray-600"></div>
                 <button

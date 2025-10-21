@@ -4,12 +4,12 @@
     id="create-organization-popover"
     class="p-0 border-0 bg-transparent shadow-none"
     style="margin: 0;"
-    onhide="organizationName = ''"
   >
     <div
       class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity z-40"
       popovertarget="create-organization-popover"
       popovertargetaction="hide"
+      @click="organizationName = ''"
     ></div>
 
     <div
@@ -20,31 +20,8 @@
         class="relative bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:w-full sm:max-w-lg p-6"
         @click.stop
       >
-        <form
-          @submit.prevent="
-            fetch('{{ route('panel.organisations.create') }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ name: organizationName })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Organization created:', data);
-                document.getElementById('create-organization-popover').hidePopover();
-            })
-            .catch(error => {
-                console.error('Error creating organization:', error);
-            });
-          "
-        >
+        <form action="{{ route('panel.organisations.store') }}" method="POST">
+          @csrf
           <div class="sm:flex sm:items-start">
             <div
               class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-gimysite-100 dark:bg-gimysite-700 sm:mx-0 sm:h-10 sm:w-10"
@@ -78,21 +55,24 @@
               </h3>
               <div class="mt-4">
                 <label
-                  for="organization-name"
+                  for="organization-name-input"
                   class="block text-sm font-medium text-gray-700 dark:text-gray-300"
                   >{{ __('panel.organisations.name') }}</label
                 >
                 <div class="mt-1">
                   <input
                     type="text"
-                    name="organization-name"
-                    id="organization-name"
+                    name="name"
+                    id="organization-name-input"
                     x-model="organizationName"
                     class="shadow-sm focus:ring-gimysite-500 focus:border-gimysite-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                     placeholder="{{ __('panel.organisations.name_placeholder') }}"
                     required
                   />
                 </div>
+                @error('name')
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                @enderror
               </div>
             </div>
           </div>
@@ -107,6 +87,7 @@
               type="button"
               popovertarget="create-organization-popover"
               popovertargetaction="hide"
+              @click="organizationName = ''"
               class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gimysite-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600 dark:focus:ring-offset-800 sm:mt-0 sm:w-auto sm:text-sm"
             >
               {{ __('strings.cancel') }}

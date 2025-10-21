@@ -52,11 +52,13 @@ class User extends Authenticatable
 
             $organisation = Organisation::create([
                 'name' => $user->name,
+                'email' => $user->email,
                 'user_id' => $user->id,
                 'slug' => $slug,
             ]);
 
-            $organisation->users()->attach($user->id, ['role' => 'owner']);
+            //$organisation->users()->attach($user->id, ['role' => 'owner']);
+            $organisation->users()->attach($user->id, ['role' => 'admin']);
         });
     }
 

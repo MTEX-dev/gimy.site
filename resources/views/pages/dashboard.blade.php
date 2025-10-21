@@ -49,24 +49,24 @@
                                 @endforeach
                             </div>
                         </div>
+                        <button popovertarget="create-organization-popover"
+                            class="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gimysite-600 hover:bg-gimysite-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gimysite-500">
+                            {{ __('Create New Organisation') }}
+                        </button>
                     @else
                         <div class="mt-8 text-center">
                             <p class="text-gimysite-700 dark:text-gimysite-300">
                                 {{ __('You don\'t have any organisations yet.') }}
                             </p>
-                            <a href="#"
+                            <button popovertarget="create-organization-popover"
                                 class="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gimysite-600 hover:bg-gimysite-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gimysite-500">
                                 {{ __('Create New Organisation') }}
-                            </a>
+                            </button>
                         </div>
                     @endif
                 </div>
             </div>
 
-            <button popovertarget="create-organization-popover" class="px-4 py-2 bg-gimysite-600 text-white rounded-md">
-              {{ __('panel.create_name_item', ['item' => __('panel.organisations.item_name')]) }}
-            </button>
-            
             @include('components.panel.create-organisation-popover')
         </div>
     </div>
