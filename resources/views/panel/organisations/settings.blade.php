@@ -1,0 +1,58 @@
+@extends('layouts.panel')
+
+@section('header')
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        {{ $organisation->name }} Settings
+    </h2>
+@endsection
+
+@section('content')
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mb-6">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <h3 class="text-xl font-semibold mb-4">Update Organisation Information</h3>
+                    <form action="{{ route('panel.organisations.update', $organisation) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-4">
+                            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Organisation Name</label>
+                            <input type="text" name="name" id="name" value="{{ old('name', $organisation->name) }}"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
+                            @error('name')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Organisation Email (Optional)</label>
+                            <input type="email" name="email" id="email" value="{{ old('email', $organisation->email) }}"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200">
+                            @error('email')
+                                <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <button type="submit"
+                            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gimysite-600 hover:bg-gimysite-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gimysite-500">
+                            Save Changes
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <h3 class="text-xl font-semibold mb-4">Delete Organisation</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">Once you delete an organisation, all of its sites and data will be permanently deleted. Please be sure you want to do this.</p>
+                    <form action="{{ route('panel.organisations.destroy', $organisation) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this organisation? This action cannot be undone.');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                            Delete Organisation
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

@@ -42,7 +42,7 @@ class Organisation extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'organisation_members');
+        return $this->belongsToMany(User::class, 'organisation_members')->withTimestamps();
     }
 
     public function getDisplayableAvatar()

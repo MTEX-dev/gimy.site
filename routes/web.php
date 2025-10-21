@@ -62,11 +62,20 @@ require __DIR__ . '/auth.php';
 Route::middleware('auth')->name('panel.')->group(function () {
     Route::post('/org/store', [PanelOrganisationController::class, 'store'])->name('organisations.store');
     Route::post('/org/create', [PanelOrganisationController::class, 'store'])->name('organisations.create');
+
     Route::prefix('/org/{organisation:slug}')->group(function () {
         Route::get('/', [PanelOrganisationController::class, 'overview'])->name('overview');
-        Route::get('/members', [PanelOrganisationController::class, 'members'])->name('organisations.members');
-        Route::get('/sites', [PanelOrganisationController::class, 'sites'])->name('organisations.sites');
+
         Route::get('/settings', [PanelOrganisationController::class, 'settings'])->name('organisations.settings');
+        Route::put('/settings', [PanelOrganisationController::class, 'update'])->name('organisations.update');
+        Route::delete('/', [PanelOrganisationController::class, 'destroy'])->name('organisations.destroy');
+
+        Route::get('/members', [PanelOrganisationController::class, 'members'])->name('organisations.members');
+        Route::post('/members', [PanelOrganisationController::class, 'addMember'])->name('organisations.members.add');
+        Route::put('/members/{user}', [PanelOrganisationController::class, 'updateMemberRole'])->name('organisations.members.updateRole');
+        Route::delete('/members/{user}', [PanelOrganisationController::class, 'removeMember'])->name('organisations.members.remove');
+
+        Route::get('/sites', [PanelOrganisationController::class, 'sites'])->name('organisations.sites');
 
         Route::get('/sites/new', [PanelSiteController::class, 'create'])->name('sites.create');
         Route::prefix('/sites/{site:slug}')->name('sites.')->group(function () {
