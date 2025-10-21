@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -19,7 +20,6 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        /*
         $exceptions->renderable(function (NotFoundHttpException $e, $request) {
             if (!$request->expectsJson()) {
                 return response()->view('pages.error', ['code' => 404], 404);
@@ -27,11 +27,14 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         $exceptions->renderable(function (Throwable $e, $request) {
+            if ($e instanceof ValidationException) {
+                return;
+            }
+
             if (!$request->expectsJson()) {
                 $statusCode = $e instanceof HttpExceptionInterface ? $e->getStatusCode() : 500;
 
                 return response()->view('pages.error', ['code' => $statusCode], $statusCode);
             }
         });
-        */
     })->create();
