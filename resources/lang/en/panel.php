@@ -25,6 +25,17 @@ return [
         'cannot_remove_self' => 'You cannot remove yourself from the organisation.',
         'member_removed_success' => 'Member removed successfully.',
     ],
+    'sites' => [
+        'create_success' => 'Site created successfully.',
+        'create_for_organisation' => 'Create a new Site for :organisationName',
+        'name' => 'Site Name',
+        'custom_domain_optional' => 'Custom Domain (optional)',
+        'create_button' => 'Create Site',
+        'sites_title' => 'Sites',
+        'create_new_button' => 'Create New Site',
+        'no_sites_message' => 'This organisation has no sites yet.',
+        'view_details_button' => 'View Site Details',
+    ],
     'create_name_item' => 'Create new :item',
     'new_name_item' => 'New :item',
 ];

@@ -9,19 +9,27 @@ use App\Models\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Symfony\Component\HttpFoundation\Response;
 
 class SiteController extends Controller
 {
+    use AuthorizesRequests;
+
     public function create(Organisation $organisation)
     {
-        $this->authorize('addSite', $organisation);
+        if (!Auth::user()->can('addSite', $organisation)) {
+            abort(Response::HTTP_FORBIDDEN, __('pages.errors.403.message'));
+        }
 
         return view('panel.sites.create', compact('organisation'));
     }
 
     public function store(StoreSiteRequest $request, Organisation $organisation)
     {
-        $this->authorize('addSite', $organisation);
+        if (!Auth::user()->can('addSite', $organisation)) {
+            return back()->with('error', __('pages.errors.403.message'));
+        }
 
         $validatedData = $request->validated();
 
@@ -46,6 +54,8 @@ class SiteController extends Controller
 
         $site->save();
 
-        return redirect()->route('panel.organisations.overview', $organisation)->with('success', 'Site created successfully.');
+        return redirect()
+            ->route('panel.organisations.overview', $organisation)
+            ->with('success', __('panel.sites.create_success'));
     }
 }
