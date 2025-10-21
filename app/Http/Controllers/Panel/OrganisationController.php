@@ -60,22 +60,37 @@ class OrganisationController extends Controller
 
         $organisation->update($validatedData);
 
-        return redirect()->route('panel.organisations.settings', $organisation)->with('success', 'Organisation settings updated.');
+        return redirect()
+            ->route('panel.organisations.settings', $organisation)
+            ->with('success', __('panel.organisations.update_success'));
     }
 
     public function destroy(Request $request, Organisation $organisation)
     {
         $request->validate([
-            'password' => ['required', 'string', function ($attribute, $value, $fail) {
-                if (!Hash::check($value, Auth::user()->password)) {
-                    $fail('The provided password does not match your current password.');
-                }
-            }],
+            'slug_confirmation' => 'required|string',
+            'password' => [
+                'required',
+                'string',
+                function ($attribute, $value, $fail) {
+                    if (!Hash::check($value, Auth::user()->password)) {
+                        $fail(__('panel.organisations.password_mismatch'));
+                    }
+                },
+            ],
         ]);
+
+        if ($request->slug_confirmation !== $organisation->slug) {
+            return back()->withErrors([
+                'slug_confirmation' => __('panel.organisations.slug_mismatch'),
+            ]);
+        }
 
         $organisation->delete();
 
-        return redirect()->route('panel.dashboard')->with('success', 'Organisation deleted.');
+        return redirect()
+            ->route('dashboard')
+            ->with('success', __('panel.organisations.delete_success'));
     }
 
     public function members(Organisation $organisation)
@@ -95,33 +110,42 @@ class OrganisationController extends Controller
         $user = User::where('email', $validatedData['email'])->first();
 
         if ($organisation->users()->where('user_id', $user->id)->exists()) {
-            return back()->withErrors(['email' => 'This user is already a member of the organisation.']);
+            return back()->withErrors([
+                'email' => __('panel.organisations.member_already_exists'),
+            ]);
         }
 
         $organisation->users()->attach($user->id, ['role' => $validatedData['role']]);
 
-        return back()->with('success', 'Member added successfully.');
+        return back()->with('success', __('panel.organisations.member_added_success'));
     }
 
-    public function updateMemberRole(Request $request, Organisation $organisation, User $user)
-    {
+    public function updateMemberRole(
+        Request $request,
+        Organisation $organisation,
+        User $user,
+    ) {
         $validatedData = $request->validate([
             'role' => 'required|in:admin,member',
         ]);
 
-        $organisation->users()->updateExistingPivot($user->id, ['role' => $validatedData['role']]);
+        $organisation->users()->updateExistingPivot($user->id, [
+            'role' => $validatedData['role'],
+        ]);
 
-        return back()->with('success', 'Member role updated successfully.');
+        return back()->with('success', __('panel.organisations.member_role_updated_success'));
     }
 
     public function removeMember(Organisation $organisation, User $user)
     {
         if (Auth::id() === $user->id) {
-            return back()->withErrors(['message' => 'You cannot remove yourself from the organisation.']);
+            return back()->withErrors([
+                'message' => __('panel.organisations.cannot_remove_self'),
+            ]);
         }
 
         $organisation->users()->detach($user->id);
 
-        return back()->with('success', 'Member removed successfully.');
+        return back()->with('success', __('panel.organisations.member_removed_success'));
     }
 }
