@@ -192,7 +192,7 @@
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               ></path>
             </svg>
-            <span class="ml-2 hidden sm:inline text-sm">Search...</span>
+            <span class="ml-2 hidden sm:inline text-sm">{{ __('strings.search') . '...' }}</span>
             <kbd
               class="ml-2 hidden sm:inline-flex text-xs border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 rounded px-1.5 py-0.5 shadow-sm"
               >⌘K</kbd

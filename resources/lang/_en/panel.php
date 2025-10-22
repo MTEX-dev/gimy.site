@@ -24,6 +24,8 @@ return [
         'member_role_updated_success' => 'Member role updated successfully.',
         'cannot_remove_self' => 'You cannot remove yourself from the organisation.',
         'member_removed_success' => 'Member removed successfully.',
+        'plural' => 'Organisations',
+        'no_organisations_yet' => 'You don\'t have any organisations yet.',
     ],
     'sites' => [
         'create_success' => 'Site created successfully.',
@@ -38,7 +40,11 @@ return [
         'files' => [
             'update_success' => 'File updated successfully.',
         ],
+        'singular' => 'Site',
+        'plural' => 'Sites',
     ],
     'create_name_item' => 'Create new :item',
     'new_name_item' => 'New :item',
+    'overview' => 'Overview',
+    'navigation' => 'Navigation',
 ];

@@ -2,7 +2,7 @@
 
 @section('header')
     <h2 class="font-semibold leading-tight text-gray-800 dark:text-gray-200">
-        {{ $organisation->name }} Overview
+        {{ $organisation->name . ' ' . __('pages.overview')}}
     </h2>
 @endsection
 

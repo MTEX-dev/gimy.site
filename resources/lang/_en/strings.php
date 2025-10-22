@@ -6,7 +6,6 @@ return [
     'edit' => 'Edit',
     'delete' => 'Delete',
     'and' => 'and',
-    'notifications' => [
-        'locale_switched' => 'Locale switched to :locale',
-    ],
+    'search' => 'Search',
+    'close' => 'Close',
 ];

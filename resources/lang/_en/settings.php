@@ -59,5 +59,6 @@ return [
         'avatar_removed' => 'Avatar removed successfully.',
         'session_invalidated' => 'Session invalidated successfully.',
         'all_other_sessions_invalidated' => 'All other sessions invalidated successfully.',
+        'locale_switched' => 'Locale switched to :locale',
     ],
 ];

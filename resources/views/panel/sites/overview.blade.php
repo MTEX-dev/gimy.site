@@ -2,7 +2,7 @@
 
 @section('header')
     <h2 class="font-semibold leading-tight text-gray-800 dark:text-gray-200">
-        {{ __('Site Overview') }}: {{ $site->name }}
+        {{ __('panel.sites.sites_title') . ' ' . __('panel.overview') . ': ' . $site->name }}
     </h2>
 @endsection
 

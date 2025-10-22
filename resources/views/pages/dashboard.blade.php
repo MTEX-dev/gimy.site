@@ -25,7 +25,7 @@
                     @if ($organisations && $organisations->count() > 0)
                         <div class="mt-8">
                             <h3 class="text-xl font-semibold mb-4">
-                                {{ __('Your Organisations') }}
+                                {{ __('pages.dashboard.your_organisations') }}
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                                 @foreach ($organisations as $organisation)
@@ -40,8 +40,12 @@
                                                     {{ $organisation->name }}
                                                 </h4>
                                                 <p class="text-sm text-gimysite-600 dark:text-gimysite-400">
-                                                    {{ $organisation->sites->count() }}
-                                                    {{ trans_choice('Site|Sites', $organisation->sites->count()) }}
+                                                    {{ trans_choice(
+                                                        __('panel.sites.singular') .
+                                                            '|' .
+                                                            __('panel.sites.plural'),
+                                                        $organisation->sites->count(),
+                                                    ) }}
                                                 </p>
                                             </div>
                                         </div>
@@ -51,16 +55,16 @@
                         </div>
                         <button popovertarget="create-organization-popover"
                             class="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gimysite-600 hover:bg-gimysite-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gimysite-500">
-                            {{ __('Create New Organisation') }}
+                            {{ __('panel.create_name_item', ['item' => __('panel.organisations.item_name')]) }}
                         </button>
                     @else
                         <div class="mt-8 text-center">
                             <p class="text-gimysite-700 dark:text-gimysite-300">
-                                {{ __('You don\'t have any organisations yet.') }}
+                                {{ __('panel.organisations.no_organisations_yet') }}
                             </p>
                             <button popovertarget="create-organization-popover"
                                 class="mt-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gimysite-600 hover:bg-gimysite-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gimysite-500">
-                                {{ __('Create New Organisation') }}
+                                {{ __('panel.create_name_item', ['item' => __('panel.organisations.item_name')]) }}
                             </button>
                         </div>
                     @endif
