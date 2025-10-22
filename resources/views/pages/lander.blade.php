@@ -67,7 +67,7 @@
                                 href="{{ route('dashboard') }}"
                                 class="nav-button-primary"
                             >
-                                Dashboard
+                                {{ __('pages.dashboard.title') }}
                             </a>
                         @else
                             <a href="{{ route('login') }}" class="nav-link"
@@ -241,7 +241,7 @@
                         <h3
                             class="footer-heading text-gray-700 dark:text-gray-300"
                         >
-                            Legal
+                            {{ __('pages.legal.title') }}
                         </h3>
                         <ul class="space-y-1 mt-2">
                             @foreach(config('app.legal_sections') as $section)

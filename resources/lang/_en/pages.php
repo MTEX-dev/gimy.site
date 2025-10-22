@@ -69,6 +69,7 @@ return [
     ],
 
     'legal' => [
+        'title' => 'Legal',
         'last_fetched' => 'Last fetched:',
         'privacy' => [
             'title' => 'Privacy Policy',
@@ -211,6 +212,7 @@ Gimy.Site is a FREE service. Data may be lost or removed at any time for any or 
     ],
     
     'dashboard' => [
+        'title' => 'Dashboard',
         'welcome_message' => 'Welcome to your dashboard, :name!',
         'welcome_subtitle' => 'Here you can manage your static websites.',
         'your_organisations' => 'Your Organisations',

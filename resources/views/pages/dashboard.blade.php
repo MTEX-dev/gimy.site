@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', __('Dashboard'))
+@section('title', __('pages.dashboard.title'))
 
 @section('header')
     <h2 class="font-semibold text-xl text-gimysite-800 dark:text-gimysite-200 leading-tight">
-        {{ __('Dashboard') }}
+        {{ __('pages.dashboard.title') }}
     </h2>
 @endsection
 
