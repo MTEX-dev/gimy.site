@@ -35,6 +35,9 @@ return [
         'create_new_button' => 'Create New Site',
         'no_sites_message' => 'This organisation has no sites yet.',
         'view_details_button' => 'View Site Details',
+        'files' => [
+            'update_success' => 'File updated successfully.',
+        ],
     ],
     'create_name_item' => 'Create new :item',
     'new_name_item' => 'New :item',
