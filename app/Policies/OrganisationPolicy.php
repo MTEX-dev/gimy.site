@@ -42,7 +42,7 @@ class OrganisationPolicy
      */
     public function view(User $user, Organisation $organisation)
     {
-        //
+        return $organisation->users()->where('user_id', $user->id)->exists();
     }
 
     /**
@@ -53,7 +53,7 @@ class OrganisationPolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -65,7 +65,7 @@ class OrganisationPolicy
      */
     public function update(User $user, Organisation $organisation)
     {
-        //
+        return $organisation->users()->where('user_id', $user->id)->wherePivot('role', 'admin')->exists();
     }
 
     /**
@@ -77,7 +77,7 @@ class OrganisationPolicy
      */
     public function delete(User $user, Organisation $organisation)
     {
-        //
+        return $organisation->users()->where('user_id', $user->id)->wherePivot('role', 'admin')->exists();
     }
 
     /**
