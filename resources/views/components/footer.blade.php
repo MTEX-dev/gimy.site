@@ -36,7 +36,7 @@
                 <ul class="mt-4 space-y-2">
                     <li>
                         <a href="{{ route('pages.sitemap') }}" class="text-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100">
-                            Sitemap
+                            {{ __('pages.sitemap.meta.title') }}
                         </a>
                     </li>
                 </ul>

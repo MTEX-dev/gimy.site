@@ -145,7 +145,7 @@
                 <a href="#faq" @click="mobileMenuOpen = false" class="mobile-nav-link">FAQ</a>
                 <div class="w-48 border-t border-gray-200/20 pt-8"></div>
                 @auth
-                    <a href="{{ route('dashboard') }}" class="mobile-nav-button">Dashboard</a>
+                    <a href="{{ route('dashboard') }}" class="mobile-nav-button">{{ __('pages.dashboard.title') }}</a>
                 @else
                     <a href="{{ route('login') }}" @click="mobileMenuOpen = false" class="mobile-nav-link">{{ __('auth.log_in') }}</a>
                     <a href="{{ route('register') }}" class="mobile-nav-button">{{ __('auth.register') }}</a>

@@ -59,7 +59,7 @@
                               dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800
                               focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800
                               transition duration-150 ease-in-out">
-                        {{ __('Profile') }}
+                        {{ __('settings.nav.profile') }}
                     </a>
 
                     <div class="border-t border-gray-200 dark:border-gray-600"></div>

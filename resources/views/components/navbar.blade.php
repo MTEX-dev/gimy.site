@@ -11,7 +11,7 @@
                 @auth
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-gray-700 dark:text-gray-300 hover:text-gimysite-600 dark:hover:text-gimysite-400">
-                        {{ __('Dashboard') }}
+                        {{ __('pages.dashboard.title') }}
                     </x-nav-link>
                 </div>
                 @endauth
@@ -44,7 +44,7 @@
 
                         <x-slot name="content">
                             <x-dropdown-link :href="route('settings.profile')">
-                                {{ __('Profile') }}
+                                {{ __('settings.nav.profile') }}
                             </x-dropdown-link>
                             <div class="border-t border-gray-200 dark:border-gray-600"></div>
                             <div class="block px-4 py-2 text-xs text-gray-400">
@@ -101,7 +101,7 @@
         @auth
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+                {{ __('pages.dashboard.title') }}
             </x-responsive-nav-link>
         </div>
 
@@ -118,7 +118,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('settings.profile')">
-                    {{ __('Profile') }}
+                    {{ __('settings.nav.profile') }}
                 </x-responsive-nav-link>
 
                 <form method="POST" action="{{ route('logout') }}">
