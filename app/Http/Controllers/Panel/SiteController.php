@@ -55,7 +55,7 @@ class SiteController extends Controller
         $site->save();
 
         return redirect()
-            ->route('panel.organisations.overview', $organisation)
+            ->route('panel.overview', $organisation)
             ->with('success', __('panel.sites.create_success'));
     }
 }
