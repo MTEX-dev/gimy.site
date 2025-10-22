@@ -67,7 +67,6 @@
                     x-model="organizationName"
                     class="shadow-sm focus:ring-gimysite-500 focus:border-gimysite-500 block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                     placeholder="{{ __('panel.organisations.name_placeholder') }}"
-                    required
                   />
                 </div>
                 @error('name')

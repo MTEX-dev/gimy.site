@@ -44,6 +44,12 @@
 
             <div
               x-show="open"
+              x-transition:enter="transition ease-out duration-200"
+              x-transition:enter-start="opacity-0 scale-95"
+              x-transition:enter-end="opacity-100 scale-100"
+              x-transition:leave="transition ease-in duration-75"
+              x-transition:leave-start="opacity-100 scale-100"
+              x-transition:leave-end="opacity-0 scale-95"
               class="absolute z-50 mt-2 top-full left-0 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none"
             >
               <div class="py-1">
@@ -124,6 +130,12 @@
 
             <div
               x-show="open"
+              x-transition:enter="transition ease-out duration-200"
+              x-transition:enter-start="opacity-0 scale-95"
+              x-transition:enter-end="opacity-100 scale-100"
+              x-transition:leave="transition ease-in duration-75"
+              x-transition:leave-start="opacity-100 scale-100"
+              x-transition:leave-end="opacity-0 scale-95"
               class="absolute z-50 mt-2 top-full left-0 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none"
             >
               <div class="py-1">
@@ -158,7 +170,7 @@
                   class="border-t border-gray-100 dark:border-gray-600"
                 ></div>
                 <a
-                  href="{{ route('panel.sites.create', $organisation) }}"
+                  href="{{ route('panel.organisations.sites.create', $organisation) }}"
                   class="block px-4 py-2 text-sm text-gimysite-600 dark:text-gimysite-400 hover:bg-gray-100 dark:hover:bg-gray-600"
                 >
                   New Site
@@ -192,7 +204,9 @@
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               ></path>
             </svg>
-            <span class="ml-2 hidden sm:inline text-sm">{{ __('strings.search') . '...' }}</span>
+            <span class="ml-2 hidden sm:inline text-sm"
+              >{{ __('strings.search') . '...' }}</span
+            >
             <kbd
               class="ml-2 hidden sm:inline-flex text-xs border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 rounded px-1.5 py-0.5 shadow-sm"
               >⌘K</kbd
@@ -204,4 +218,63 @@
       </div>
     </div>
   </div>
+
+  @if (isset($organisation))
+  <div
+    class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800"
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-start h-12 space-x-6">
+        @if (request()->routeIs('panel.sites.*') && isset($site))
+        @include('components.panel.nav-link', [
+          'href' => route('panel.sites.overview', ['organisation' => $organisation, 'site' => $site]),
+          'active' => request()->routeIs('panel.sites.overview'),
+          'text' => __('panel.overview')
+        ])
+        @include('components.panel.nav-link', [
+          'href' => route('panel.sites.files', ['organisation' => $organisation, 'site' => $site]),
+          'active' => request()->routeIs('panel.sites.files') || request()->routeIs('panel.sites.files.edit') || request()->routeIs('panel.sites.files.update'),
+          'text' => __('panel.sites.files.title')
+        ])
+        @include('components.panel.nav-link', [
+          'href' => route('panel.sites.backups', ['organisation' => $organisation, 'site' => $site]),
+          'active' => request()->routeIs('panel.sites.backups'),
+          'text' => __('panel.sites.backups.title')
+        ])
+        @include('components.panel.nav-link', [
+          'href' => route('panel.sites.visits', ['organisation' => $organisation, 'site' => $site]),
+          'active' => request()->routeIs('panel.sites.visits'),
+          'text' => __('panel.sites.visits.title')
+        ])
+        @include('components.panel.nav-link', [
+          'href' => route('panel.sites.settings', ['organisation' => $organisation, 'site' => $site]),
+          'active' => request()->routeIs('panel.sites.settings'),
+          'text' => __('panel.sites.settings.title')
+        ])
+        @else
+        @include('components.panel.nav-link', [
+          'href' => route('panel.overview', ['organisation' => $organisation]),
+          'active' => request()->routeIs('panel.overview'),
+          'text' => __('panel.overview')
+        ])
+        @include('components.panel.nav-link', [
+          'href' => route('panel.organisations.sites', ['organisation' => $organisation]),
+          'active' => request()->routeIs('panel.organisations.sites') || request()->routeIs('panel.organisations.sites.create'),
+          'text' => __('panel.sites.plural')
+        ])
+        @include('components.panel.nav-link', [
+          'href' => route('panel.organisations.members', ['organisation' => $organisation]),
+          'active' => request()->routeIs('panel.organisations.members'),
+          'text' => __('panel.organisations.members.title')
+        ])
+        @include('components.panel.nav-link', [
+          'href' => route('panel.organisations.settings', ['organisation' => $organisation]),
+          'active' => request()->routeIs('panel.organisations.settings') || request()->routeIs('panel.organisations.update') || request()->routeIs('panel.organisations.destroy'),
+          'text' => __('panel.organisations.settings')
+        ])
+        @endif
+      </div>
+    </div>
+  </div>
+  @endif
 </nav>

@@ -179,35 +179,32 @@ Gimy.Site is a FREE service. Data may be lost or removed at any time for any or 
     ],
 
     'errors' => [
+        'back_home' => 'Go to Homepage',
+        'refresh' => 'Refresh Page',
         '403' => [
             'title' => '403 Forbidden',
-            'message' => 'You don\'t have permission to access this resource.',
-            'back_home' => 'Go to Homepage',
+            //'message' => 'You don\'t have permission to access this resource.',
+            'message' => 'You don\'t have permission to perform this action.',
         ],
         '404' => [
             'title' => '404 Not Found',
             'message' => 'The page you are looking for does not exist.',
-            'back_home' => 'Go to Homepage',
         ],
         '500' => [
             'title' => '500 Internal Server Error',
             'message' => 'Something went wrong on our end. Please try again later.',
-            'back_home' => 'Go to Homepage',
         ],
         '503' => [
             'title' => '503 Service Unavailable',
             'message' => 'We are currently undergoing maintenance. Please check back soon.',
-            'back_home' => 'Go to Homepage',
         ],
         '419' => [
             'title' => '419 Page Expired',
             'message' => 'The page has expired due to inactivity. Please refresh and try again.',
-            'refresh' => 'Refresh Page',
         ],
         '429' => [
             'title' => '429 Too Many Requests',
             'message' => 'You have sent too many requests in a given amount of time. Please try again later.',
-            'back_home' => 'Go to Homepage',
         ],
     ],
     

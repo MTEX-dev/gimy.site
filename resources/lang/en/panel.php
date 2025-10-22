@@ -26,6 +26,9 @@ return [
         'member_removed_success' => 'Member removed successfully.',
         'plural' => 'Organisations',
         'no_organisations_yet' => 'You don\'t have any organisations yet.',
+        'members' => [
+            'title' => 'Members',
+        ],
     ],
     'sites' => [
         'create_success' => 'Site created successfully.',
@@ -39,6 +42,16 @@ return [
         'view_details_button' => 'View Site Details',
         'files' => [
             'update_success' => 'File updated successfully.',
+            'title' => 'Files',
+        ],
+        'backups' => [
+            'title' => 'Backups',
+        ],
+        'visits' => [
+            'title' => 'Visits',
+        ],
+        'settings' => [
+            'title' => 'Settings',
         ],
         'singular' => 'Site',
         'plural' => 'Sites',

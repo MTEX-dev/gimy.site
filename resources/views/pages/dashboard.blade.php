@@ -40,7 +40,7 @@
                                                     {{ $organisation->name }}
                                                 </h4>
                                                 <p class="text-sm text-gimysite-600 dark:text-gimysite-400">
-                                                    {{ trans_choice(
+                                                    {{ $organisation->sites->count() . ' ' . trans_choice(
                                                         __('panel.sites.singular') .
                                                             '|' .
                                                             __('panel.sites.plural'),
