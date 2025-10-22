@@ -18,34 +18,15 @@
           <div x-data="{ open: false }" class="relative flex items-center">
             <button
               type="button"
-              @click="open = !open" @click.outside="open = false"
+              @click="open = !open"
+              @click.outside="open = false"
               class="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gimysite-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
             >
-              <span
-                class="relative inline-grid shrink-0 align-middle *:col-start-1 *:row-start-1 bg-gimysite-100 text-gimysite-700 dark:bg-gimysite-700 dark:text-gimysite-100 rounded-md *:rounded-md"
-              >
-                <svg
-                  class="fill-current text-[48px] font-medium uppercase select-none w-5 h-5"
-                  viewBox="0 0 100 100"
-                  aria-hidden="true"
-                >
-                  <text
-                    x="50%"
-                    y="50%"
-                    alignment-baseline="middle"
-                    dominant-baseline="middle"
-                    text-anchor="middle"
-                    dy=".125em"
-                    fill="currentColor"
-                  >
-                    {{ substr($organisation->name, 0, 1) }}
-                  </text>
-                </svg>
-                <span
-                  class="relative border border-gimysite-200 dark:border-gimysite-600"
-                  aria-hidden="true"
-                ></span>
-              </span>
+              <img
+                src="{{ $organisation->getDisplayableAvatar() }}"
+                alt="{{ $organisation->name }}"
+                class="w-5 h-5 rounded-md"
+              />
               <span>{{ $organisation->name }}</span>
               <svg
                 class="ml-1 -mr-0.5 h-4 w-4"
@@ -66,34 +47,46 @@
               class="absolute z-50 mt-2 top-full left-0 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none"
             >
               <div class="py-1">
-                <a
-                  href="{{ route('panel.overview', $organisation) }}"
-                  class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
-                  >Current Organization</a
-                >
-                <div class="border-t border-gray-100 dark:border-gray-600"></div>
                 @foreach ($organisations as $org)
-                    @if ($org->id !== $organisation->id)
-                        <a
-                        href="{{ route('panel.overview', ['organisation' => $org]) }}"
-                        class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
-                        >{{ $org->name }}</a
-                        >
-                    @endif
+                <a
+                  href="{{ route('panel.overview', ['organisation' => $org]) }}"
+                  class="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
+                >
+                  <img
+                    src="{{ $org->getDisplayableAvatar() }}"
+                    alt="{{ $org->name }}"
+                    class="w-5 h-5 rounded-md"
+                  />
+                  <span>{{ $org->name }}</span>
+                  @if ($org->id === $organisation->id)
+                  <svg
+                    class="ml-auto w-4 h-4 text-gimysite-600 dark:text-gimysite-400"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  @endif
+                </a>
                 @endforeach
 
+                <div
+                  class="border-t border-gray-100 dark:border-gray-600"
+                ></div>
 
-                <div class="border-t border-gray-100 dark:border-gray-600"></div>
-
-
-                <div class="border-t border-gray-100 dark:border-gray-600"></div>
                 <button
-                    popovertarget="create-organization-popover"
-                    @click="open = false"
-                    type="button"
-                    class="block w-full text-left px-4 py-2 text-sm text-gimysite-600 dark:text-gimysite-400 hover:bg-gray-100 dark:hover:bg-gray-600"
+                  popovertarget="create-organization-popover"
+                  @click="open = false"
+                  type="button"
+                  class="block w-full text-left px-4 py-2 text-sm text-gimysite-600 dark:text-gimysite-400 hover:bg-gray-100 dark:hover:bg-gray-600"
                 >
-                    {{ __('panel.new_name_item', ['item' => __('panel.organisations.item_name')]) }}
+                  {{ __('panel.new_name_item', ['item' =>
+                  __('panel.organisations.item_name')]) }}
                 </button>
                 @include('components.panel.create-organisation-popover')
               </div>
@@ -105,34 +98,15 @@
           <div x-data="{ open: false }" class="relative flex items-center">
             <button
               type="button"
-              @click="open = !open" @click.outside="open = false"
+              @click="open = !open"
+              @click.outside="open = false"
               class="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gimysite-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
             >
-              <span
-                class="relative inline-grid shrink-0 align-middle *:col-start-1 *:row-start-1 bg-teal-100 text-teal-700 dark:bg-teal-700 dark:text-teal-100 rounded-md *:rounded-md"
-              >
-                <svg
-                  class="fill-current text-[48px] font-medium uppercase select-none w-5 h-5"
-                  viewBox="0 0 100 100"
-                  aria-hidden="true"
-                >
-                  <text
-                    x="50%"
-                    y="50%"
-                    alignment-baseline="middle"
-                    dominant-baseline="middle"
-                    text-anchor="middle"
-                    dy=".125em"
-                    fill="currentColor"
-                  >
-                    {{ substr($site->name, 0, 1) }}
-                  </text>
-                </svg>
-                <span
-                  class="relative border border-teal-200 dark:border-teal-600"
-                  aria-hidden="true"
-                ></span>
-              </span>
+              <img
+                src="{{ $site->getDisplayableAvatar() }}"
+                alt="{{ $site->name }}"
+                class="w-5 h-5 rounded-md"
+              />
               <span>{{ $site->name }}</span>
               <svg
                 class="ml-1 -mr-0.5 h-4 w-4"
@@ -153,28 +127,42 @@
               class="absolute z-50 mt-2 top-full left-0 w-48 rounded-md shadow-lg bg-white dark:bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none"
             >
               <div class="py-1">
+                @foreach ($organisation->sites as $s)
                 <a
-                  href="{{ route('panel.site.overview', ['organisation' => $organisation, 'site' => $site]) }}"
-                  class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
-                  >Current Site</a
+                  href="{{ route('panel.sites.overview', ['organisation' => $organisation, 'site' => $s]) }}"
+                  class="flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
                 >
-                <div class="border-t border-gray-100 dark:border-gray-600"></div>
+                  <img
+                    src="{{ $s->getDisplayableAvatar() }}"
+                    alt="{{ $s->name }}"
+                    class="w-5 h-5 rounded-md"
+                  />
+                  <span>{{ $s->name }}</span>
+                  @if ($s->id === $site->id)
+                  <svg
+                    class="ml-auto w-4 h-4 text-gimysite-600 dark:text-gimysite-400"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  @endif
+                </a>
+                @endforeach
+                <div
+                  class="border-t border-gray-100 dark:border-gray-600"
+                ></div>
                 <a
-                  href="#"
-                  class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
-                  >Other Site 1</a
-                >
-                <a
-                  href="#"
-                  class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
-                  >Other Site 2</a
-                >
-                <div class="border-t border-gray-100 dark:border-gray-600"></div>
-                <a
-                  href="#"
+                  href="{{ route('panel.sites.create', $organisation) }}"
                   class="block px-4 py-2 text-sm text-gimysite-600 dark:text-gimysite-400 hover:bg-gray-100 dark:hover:bg-gray-600"
-                  >+ Create New Site</a
                 >
+                  New Site
+                </a>
               </div>
             </div>
           </div>

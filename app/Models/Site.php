@@ -111,4 +111,9 @@ class Site extends Model
     {
         return Storage::disk('sites')->delete($this->storage_directory . '/' . $filePath);
     }
+
+    public function getDisplayableAvatar()
+    {
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) .  '&color=FFFFFF&background=111827';
+    }
 }

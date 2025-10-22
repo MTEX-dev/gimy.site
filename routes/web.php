@@ -86,6 +86,8 @@ Route::middleware('auth')->name('panel.')->group(function () {
 
         Route::get('/sites/create', [PanelSiteController::class, 'create'])->name('organisations.sites.create');
         Route::post('/sites', [PanelSiteController::class, 'store'])->name('organisations.sites.store');
+        Route::get('/sites/_create', [PanelSiteController::class, 'create'])->name('sites.create');
+        Route::post('/sites/store', [PanelSiteController::class, 'store'])->name('sites.store');
 
         Route::get('/sites', [PanelOrganisationController::class, 'sites'])->name('organisations.sites');
 
