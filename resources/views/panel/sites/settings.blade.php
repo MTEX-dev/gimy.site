@@ -15,7 +15,7 @@
                         {{ __('panel.sites.settings.update_info_title') }}
                     </h3>
                     <form
-                        action="{{ route('panel.sites.update', ['site' => $site, 'organisation' => $organisation]) }}) }}"
+                        action="{{ route('panel.sites.update', ['site' => $site, 'organisation' => $organisation]) }}"
                         method="POST"
                     >
                         @csrf
@@ -90,7 +90,7 @@
                         class="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-lg"
                     >
                         <form
-                            action="{{ route('panel.sites.destroy', ['site' => $site, 'organisation' => $organisation]) }}) }}"
+                            action="{{ route('panel.sites.destroy', ['site' => $site, 'organisation' => $organisation]) }}"
                             method="POST"
                         >
                             @csrf
