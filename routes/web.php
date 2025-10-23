@@ -99,6 +99,8 @@ Route::middleware('auth')->name('panel.')->group(function () {
             Route::get('/backups', [PanelSiteController::class, 'backups'])->name('backups');
             Route::get('/visits', [PanelSiteController::class, 'visits'])->name('visits');
             Route::get('/settings', [PanelSiteController::class, 'settings'])->name('settings');
+            Route::put('/settings', [PanelSiteController::class, 'update'])->name('update');
+            Route::delete('/', [PanelSiteController::class, 'destroy'])->name('destroy');
         });
     });
 });

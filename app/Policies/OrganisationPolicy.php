@@ -46,6 +46,18 @@ class OrganisationPolicy
     }
 
     /**
+     * Determine whether the user can view a site within the organisation.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Organisation  $organisation
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewSite(User $user, Organisation $organisation)
+    {
+        return $this->view($user, $organisation);
+    }
+
+    /**
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user
@@ -69,6 +81,18 @@ class OrganisationPolicy
     }
 
     /**
+     * Determine whether the user can update a site within the organisation.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Organisation  $organisation
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function updateSite(User $user, Organisation $organisation)
+    {
+        return $this->update($user, $organisation);
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
@@ -78,6 +102,18 @@ class OrganisationPolicy
     public function delete(User $user, Organisation $organisation)
     {
         return $organisation->users()->where('user_id', $user->id)->wherePivot('role', 'admin')->exists();
+    }
+
+    /**
+     * Determine whether the user can delete a site within the organisation.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Organisation  $organisation
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function deleteSite(User $user, Organisation $organisation)
+    {
+        return $this->delete($user, $organisation);
     }
 
     /**

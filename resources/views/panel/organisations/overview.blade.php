@@ -45,7 +45,7 @@
                                 <div class="rounded-lg bg-gray-50 p-4 shadow dark:bg-gray-700">
                                     <h5 class="text-lg font-bold">{{ $org_site->name }}</h5>
                                     <p class="text-gray-600 dark:text-gray-400">{{ $org_site->url }}</p>
-                                    <a href="#"
+                                    <a href="{{ route('panel.sites.overview', ['site' => $org_site, $organisation]) }}"
                                         class="mt-2 inline-block text-gimysite-600 hover:text-gimysite-900 dark:text-gimysite-400 dark:hover:text-gimysite-200">{{ __('panel.sites.view_details_button') }}</a>
                                 </div>
                             @endforeach
