@@ -322,6 +322,8 @@
         </button>
 
         @include('components.toast-notifications')
-        @include('components.locale-suggestion')
+        <div class="">
+            @include('components.locale-suggestion')
+        </div>
     </body>
 </html>
