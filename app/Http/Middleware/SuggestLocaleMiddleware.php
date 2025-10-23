@@ -15,7 +15,11 @@ class SuggestLocaleMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! $request->session()->has('locale') && $request->header('Accept-Language')) {
+        if (
+            ! $request->session()->has('locale') &&
+            ! $request->session()->has('locale_suggestion_dismissed') &&
+            $request->header('Accept-Language')
+        ) {
             $browserLocale = substr($request->header('Accept-Language'), 0, 2);
             $supportedLocales = config('app.locales', []);
 

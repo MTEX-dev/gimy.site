@@ -34,6 +34,13 @@ class PageController extends Controller
         return view('pages.legal', compact('section', 'validSections'));
     }
 
+    public function dismissSuggestion(Request $request)
+    {
+        $request->session()->put('locale_suggestion_dismissed', true);
+
+        return response()->noContent();
+    }
+
     public function error(string $code)
     {
         return view('pages.error', compact('code'));
