@@ -48,5 +48,57 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [
+        forms,
+        function ({ addBase, addUtilities, theme }) {
+            addBase({
+                '*': {
+                    'scrollbar-width': 'none',
+                    '-ms-overflow-style': 'none',
+                    '&::-webkit-scrollbar': {
+                        display: 'none',
+                    },
+                },
+                '::selection': {
+                    backgroundColor: theme('colors.gimysite.500'),
+                    color: theme('colors.white'),
+                },
+                '.dark ::selection': {
+                    backgroundColor: theme('colors.gimysite.300'),
+                    color: theme('colors.gray.900'),
+                },
+            });
+
+            const gimysiteColors = theme('colors.gimysite');
+            const scrollbarUtilities = {};
+
+            for (const shade in gimysiteColors) {
+                scrollbarUtilities[`.scrollbar-gimysite-${shade}`] = {
+                    'scrollbar-width': 'thin',
+                    '-ms-overflow-style': 'auto',
+                    '&::-webkit-scrollbar': {
+                        display: 'block',
+                        width: '8px',
+                        height: '8px',
+                    },
+                    '&::-webkit-scrollbar-track': {
+                        backgroundColor: theme('colors.gray.200'),
+                        borderRadius: '10px',
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                        backgroundColor: gimysiteColors[shade],
+                        borderRadius: '10px',
+                        border: '2px solid transparent',
+                        backgroundClip: 'content-box',
+                    },
+                    '@media (prefers-color-scheme: dark)': {
+                        '&::-webkit-scrollbar-track': {
+                            backgroundColor: theme('colors.gray.700'),
+                        },
+                    },
+                };
+            }
+            addUtilities(scrollbarUtilities, ['responsive']);
+        },
+    ],
 };
