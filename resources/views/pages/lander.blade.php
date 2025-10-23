@@ -320,5 +320,8 @@
                 />
             </svg>
         </button>
+
+        @include('components.toast-notifications')
+        @include('components.locale-suggestion')
     </body>
 </html>

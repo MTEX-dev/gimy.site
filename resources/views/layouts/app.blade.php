@@ -42,8 +42,6 @@
             </main>
         </div>
 
-        @include('components.toast-notifications')
-
         @if (!isset($hideFooter) || $hideFooter !== true)
             @include('components.footer')
         @endif
@@ -53,5 +51,8 @@
         @endif
 
         @stack('scripts')
+
+        @include('components.toast-notifications')
+        @include('components.locale-suggestion')
     </body>
 </html>

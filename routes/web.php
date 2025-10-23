@@ -70,7 +70,8 @@ require __DIR__ . '/auth.php';
 
 Route::middleware('auth')->name('panel.')->group(function () {
     Route::post('/org/store', [PanelOrganisationController::class, 'store'])->name('organisations.store');
-    Route::post('/org/create', [PanelOrganisationController::class, 'store'])->name('organisations.create');
+    Route::redirect('/org/create', '/org/new');
+    Route::get('/org/new', [PanelOrganisationController::class, 'create'])->name('organisations.create');
 
     Route::prefix('/org/{organisation:slug}')->group(function () {
         Route::get('/', [PanelOrganisationController::class, 'overview'])->name('overview');
@@ -84,13 +85,11 @@ Route::middleware('auth')->name('panel.')->group(function () {
         Route::put('/members/{user}', [PanelOrganisationController::class, 'updateMemberRole'])->name('organisations.members.updateRole');
         Route::delete('/members/{user}', [PanelOrganisationController::class, 'removeMember'])->name('organisations.members.remove');
 
-        Route::get('/sites/create', [PanelSiteController::class, 'create'])->name('organisations.sites.create');
+        Route::get('/sites/new', [PanelSiteController::class, 'create'])->name('organisations.sites.create');
         Route::post('/sites', [PanelSiteController::class, 'store'])->name('organisations.sites.store');
-        
+
         Route::get('/sites', [PanelOrganisationController::class, 'sites'])->name('organisations.sites');
-        
-        Route::get('/sites/new', [PanelSiteController::class, 'create'])->name('sites.create');
-        Route::post('/sites/new', [PanelSiteController::class, 'store'])->name('sites.store');
+
         Route::prefix('/sites/{site:slug}')->name('sites.')->group(function () {
             Route::get('/', [PanelSiteController::class, 'overview'])->name('overview');
             Route::get('/files', [PanelSiteController::class, 'files'])->name('files');
