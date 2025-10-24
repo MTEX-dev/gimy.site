@@ -94,6 +94,9 @@ Route::middleware('auth')->name('panel.')->group(function () {
         Route::prefix('/sites/{site:slug}')->name('sites.')->group(function () {
             Route::get('/', [PanelSiteController::class, 'overview'])->name('overview');
             Route::get('/files', [PanelSiteController::class, 'files'])->name('files');
+            Route::post('/files/upload', [PanelSiteController::class, 'uploadFile'])->name('files.upload');
+            Route::post('/files/create-folder', [PanelSiteController::class, 'createFolder'])->name('files.create-folder');
+            Route::delete('/files/delete', [PanelSiteController::class, 'deleteFileOrFolder'])->name('files.delete');
             Route::get('/files/edit', [PanelSiteController::class, 'editFile'])->name('files.edit');
             Route::put('/files/update', [PanelSiteController::class, 'updateFile'])->name('files.update');
             Route::get('/backups', [PanelSiteController::class, 'backups'])->name('backups');

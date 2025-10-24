@@ -111,11 +111,71 @@ class SiteController extends Controller
             ->with('success', __('panel.sites.files.update_success'));
     }
 
+    public function uploadFile(Request $request, Organisation $organisation, Site $site)
+    {
+        $this->authorize('viewSite', $organisation);
+
+        $request->validateWithBag('uploadFile', [
+            'file' => ['required', 'file', 'max:10240'],
+        ]);
+
+        $path = $request->query('path', '/');
+        $file = $request->file('file');
+
+        $file->storeAs($site->storage_path . $path, $file->getClientOriginalName());
+
+        return redirect()
+            ->route('panel.sites.files', [$organisation, $site, 'path' => $path])
+            ->with('success', __('panel.sites.files.upload_success'));
+    }
+
+    public function createFolder(Request $request, Organisation $organisation, Site $site)
+    {
+        $this->authorize('viewSite', $organisation);
+
+        $request->validateWithBag('createFolder', [
+            'folder_name' => ['required', 'string', 'max:255'],
+        ]);
+
+        $path = $request->query('path', '/');
+        $folderName = $request->input('folder_name');
+
+        Storage::makeDirectory($site->storage_path . $path . $folderName);
+
+        return redirect()
+            ->route('panel.sites.files', [$organisation, $site, 'path' => $path])
+            ->with('success', __('panel.sites.files.create_folder_success'));
+    }
+
+    public function deleteFileOrFolder(Request $request, Organisation $organisation, Site $site)
+    {
+        $this->authorize('viewSite', $organisation);
+
+        $validated = $request->validate([
+            'path' => 'required|string',
+            'type' => 'required|string|in:file,dir',
+        ]);
+
+        $path = $site->storage_path . $validated['path'];
+
+        if ($validated['type'] === 'file') {
+            Storage::delete($path);
+        } else {
+            Storage::deleteDirectory($path);
+        }
+
+        return redirect()
+            ->route('panel.sites.files', [$organisation, $site, 'path' => dirname($validated['path'])])
+            ->with('success', __('panel.sites.files.delete_success'));
+    }
+
     public function backups(Organisation $organisation, Site $site)
     {
         $this->authorize('viewSite', $organisation);
 
-        return view('panel.sites.backups', compact('organisation', 'site'));
+        $backups = $site->backups()->latest()->get();
+
+        return view('panel.sites.backups', compact('organisation', 'site', 'backups'));
     }
 
     public function visits(Organisation $organisation, Site $site)
