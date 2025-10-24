@@ -1,17 +1,19 @@
-<x-panel-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Site Backups') }}: {{ $site->name }}
-        </h2>
-    </x-slot>
+@extends('layouts.panel')
 
+@section('header')
+    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        {{ __('panel.sites.backups.title') }}: {{ $site->name }}
+    </h2>
+@endsection
+
+@section('content')
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("This is the backups page for your site.") }}
+                    {{ __('panel.sites.backups.this_page_message') }}
                 </div>
             </div>
         </div>
     </div>
-</x-panel-layout>
+@endsection

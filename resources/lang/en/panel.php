@@ -46,9 +46,11 @@ return [
         ],
         'backups' => [
             'title' => 'Backups',
+            'this_page_message' => 'This is the backups page for your site.',
         ],
         'visits' => [
             'title' => 'Visits',
+            'this_page_message' => 'This is the visits page for your site.',
         ],
         'settings' => [
             'title' => 'Settings',
