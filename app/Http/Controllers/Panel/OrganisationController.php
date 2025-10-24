@@ -175,4 +175,11 @@ class OrganisationController extends Controller
 
         return back()->with('success', __('panel.organisations.member_removed_success'));
     }
+
+    public function sites(Organisation $organisation)
+    {
+        $sites = $organisation->sites();
+
+        return view('panel.organisations.sites', compact(['organisation', 'sites']));
+    }
 }

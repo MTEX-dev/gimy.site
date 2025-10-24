@@ -99,7 +99,7 @@
             </div>
           </div>
 
-          @if (isset($site))
+          @if (isset($site) && Route::has('panel.sites.*'))
           <span class="text-gray-400 dark:text-gray-600">/</span>
           <div x-data="{ open: false }" class="relative flex items-center">
             <button
