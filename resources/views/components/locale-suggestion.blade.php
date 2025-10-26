@@ -1,4 +1,4 @@
-@if (session('suggested_locale') && session('suggested_locale') !== session('locale'))
+@if (session('suggested_locale') && session('suggested_locale') !== session('locale')){{-- && !session('locale_suggestion_dismissed')--}}
     <div
         x-data="{
             show: true,

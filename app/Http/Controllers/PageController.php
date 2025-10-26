@@ -45,9 +45,15 @@ class PageController extends Controller
     {
         return view('pages.error', compact('code'));
     }
-
-    public function setLocale(string $locale)
+#
+    public function setLocale(Request $request, string $locale)
     {
+        /*
+        if (!session('locale_suggestion_dismissed')) {
+            return redirect()->back()->with('locale_suggestion_dismissed', true);
+        }
+        */
+        //$this->dismissSuggestion($request);
         if (in_array($locale, array_keys(config('app.locales')))) {
             session(['locale' => $locale]);
 

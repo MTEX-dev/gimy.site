@@ -8,7 +8,7 @@
             <nav
                 class="h-fit w-full rounded-lg bg-white p-3 shadow-md dark:bg-gray-800 lg:sticky lg:top-20 lg:w-1/4"
             >
-                <ul class="space-y-2">
+                <ul class="space-y-0">
                     @foreach ($validSections as $validSection)
                         <li>
                             <a
@@ -26,7 +26,7 @@
             <div
                 class="w-full rounded-lg bg-white p-4 shadow-md dark:bg-gray-800 sm:p-6 lg:w-3/4 lg:p-8"
             >
-                <div class="mb-4">
+                <div class="mb-1">
                     <h1
                         class="text-2xl font-bold text-gray-900 dark:text-gray-100 sm:text-3xl"
                     >
@@ -61,11 +61,11 @@
             >
                 <div>
                     <h3
-                        class="mb-4 font-semibold text-gray-900 dark:text-gray-100"
+                        class="mb-1 font-semibold text-gray-900 dark:text-gray-100"
                     >
                         Company
                     </h3>
-                    <ul class="space-y-2">
+                    <ul class="space-y-0">
                         <li>
                             <a
                                 href="/"
@@ -87,11 +87,11 @@
 
                 <div>
                     <h3
-                        class="mb-4 font-semibold text-gray-900 dark:text-gray-100"
+                        class="mb-1 font-semibold text-gray-900 dark:text-gray-100"
                     >
                         Product
                     </h3>
-                    <ul class="space-y-2">
+                    <ul class="space-y-0">
                         <li>
                             <a
                                 href="/dashboard"
@@ -113,11 +113,11 @@
 
                 <div>
                     <h3
-                        class="mb-4 font-semibold text-gray-900 dark:text-gray-100"
+                        class="mb-1 font-semibold text-gray-900 dark:text-gray-100"
                     >
                         Legal
                     </h3>
-                    <ul class="space-y-2">
+                    <ul class="space-y-0">
                         @foreach ($validSections as $validSection)
                             <li>
                                 <a
