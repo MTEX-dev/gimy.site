@@ -36,6 +36,10 @@ class SessionController extends Controller
 
     public function destroy(Request $request, $id)
     {
+        $request->validateWithBag('sessionLogout', [
+            'password' => ['required', 'current_password'],
+        ]);
+
         DB::table('sessions')->where('id', $id)->where('user_id', Auth::id())->delete();
 
         return redirect()->route('settings.sessions.index')

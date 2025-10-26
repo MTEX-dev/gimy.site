@@ -52,13 +52,50 @@
                         </div>
 
                         @if (!$session->is_current_device)
-                            <form action="{{ route('settings.sessions.destroy', $session->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <x-danger-button type="submit">
-                                    {{ __('settings.sessions.logout_button') }}
-                                </x-danger-button>
-                            </form>
+                            <x-danger-button
+                                x-data=""
+                                x-on:click.prevent="$dispatch('open-modal', 'confirm-single-session-logout-{{ $session->id }}')">
+                                {{ __('settings.sessions.logout_button') }}
+                            </x-danger-button>
+
+                            <x-modal :name="'confirm-single-session-logout-'.$session->id" :show="$errors->sessionLogout->isNotEmpty()" focusable>
+                                <form method="post" action="{{ route('settings.sessions.destroy', $session->id) }}" class="p-6">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                                        {{ __('settings.sessions.modal_title_single') }}
+                                    </h2>
+
+                                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                        {{ __('settings.sessions.modal_description_single') }}
+                                    </p>
+
+                                    <div class="mt-6">
+                                        <x-input-label for="password-{{ $session->id }}" value="{{ __('settings.sessions.password_label') }}" class="sr-only"/>
+
+                                        <x-text-input
+                                            id="password-{{ $session->id }}"
+                                            name="password"
+                                            type="password"
+                                            class="mt-1 block w-3/4"
+                                            placeholder="{{ __('settings.sessions.password_placeholder') }}"
+                                        />
+
+                                        <x-input-error :messages="$errors->sessionLogout->get('password')" class="mt-2"/>
+                                    </div>
+
+                                    <div class="mt-6 flex justify-end">
+                                        <x-secondary-button x-on:click="$dispatch('close')">
+                                            {{ __('settings.sessions.cancel_button') }}
+                                        </x-secondary-button>
+
+                                        <x-danger-button class="ml-3">
+                                            {{ __('settings.sessions.logout_button') }}
+                                        </x-danger-button>
+                                    </div>
+                                </form>
+                            </x-modal>
                         @endif
                     </div>
                 @endforeach

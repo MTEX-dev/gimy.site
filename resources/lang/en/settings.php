@@ -47,6 +47,8 @@ return [
         'logout_others_button' => 'Log Out Other Browser Sessions',
         'modal_title' => 'Log Out Other Browser Sessions',
         'modal_description' => 'Please enter your password to confirm you would like to log out of your other browser sessions across all of your devices.',
+        'modal_title_single' => 'Log Out Browser Session',
+        'modal_description_single' => 'Please enter your password to confirm you would like to log out of this browser session.',
         'password_label' => 'Password',
         'password_placeholder' => 'Password',
         'cancel_button' => 'Cancel',
