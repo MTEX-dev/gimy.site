@@ -108,7 +108,7 @@
             </div>
 
 
-            <x-modal name="confirm-session-logout" :show="$errors->sessionLogout->isNotEmpty()" focusable>
+            <x-modal name="confirm-session-logout" :show="$errors->sessionLogoutAll->isNotEmpty()" focusable>
                 <form method="post" action="{{ route('settings.sessions.destroy-others') }}" class="p-6">
                     @csrf
                     @method('DELETE')
@@ -132,7 +132,7 @@
                             placeholder="{{ __('settings.sessions.password_placeholder') }}"
                         />
 
-                        <x-input-error :messages="$errors->sessionLogout->get('password')" class="mt-2"/>
+                        <x-input-error :messages="$errors->sessionLogoutAll->get('password')" class="mt-2"/>
                     </div>
 
                     <div class="mt-6 flex justify-end">
