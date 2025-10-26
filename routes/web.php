@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/settings/avatar', [SettingsAvatarController::class, 'destroy'])->name('settings.avatar.destroy');
     Route::get('/settings/sessions', [SettingsSessionController::class, 'index'])->name('settings.sessions.index');
     Route::delete('/settings/sessions/{session}', [SettingsSessionController::class, 'destroy'])->name('settings.sessions.destroy');
-    Route::post('/settings/sessions/logout-others', [SettingsSessionController::class, 'destroyAllOthers'])->name('settings.sessions.destroy-others');
+    Route::delete('/settings/sessions/logout-others', [SettingsSessionController::class, 'destroyAllOthers'])->name('settings.sessions.destroy-others');
 });
 
 Route::get('/auth/{provider}/redirect', [AuthProviderController::class, 'redirect'])->name('auth.provider.redirect');

@@ -44,6 +44,10 @@ class SessionController extends Controller
 
     public function destroyAllOthers(Request $request)
     {
+        $request->validateWithBag('sessionLogout', [
+            'password' => ['required', 'current_password'],
+        ]);
+
         DB::table('sessions')
             ->where('user_id', Auth::id())
             ->where('id', '!=', $request->session()->getId())
