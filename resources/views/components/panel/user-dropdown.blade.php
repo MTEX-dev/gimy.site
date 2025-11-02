@@ -32,7 +32,7 @@
                  class="absolute z-50 mt-2 w-48 rounded-md shadow-lg origin-top-right
                         right-0 overflow-visible"
                  style="display: none;">
-                <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1
+                <div class="rounded-md ring-1 ring-black ring-opacity-5 py-0 overflow-hidden
                             bg-white dark:bg-gray-700">
                     <div class="block px-4 py-2 text-xs text-gray-400">
                         <div class="flex items-center">
@@ -95,7 +95,7 @@
                                     shadow-lg origin-top-left bg-white dark:bg-gray-700
                                     ring-1 ring-black ring-opacity-5 focus:outline-none"
                              style="display: none;">
-                            <div class="py-1">
+                            <div class="py-1 overflow-hidden">
                                 @foreach (config('app.locales') as $locale => $name)
                                     <a href="{{ route('locale.set', $locale) }}"
                                        class="flex items-center px-4 py-2 text-sm leading-5
