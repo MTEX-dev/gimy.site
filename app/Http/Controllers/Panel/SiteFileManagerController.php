@@ -25,7 +25,6 @@ class SiteFileManagerController extends Controller
 
         $file = $request->file('file');
         $path = $request->query('path', '/');
-
         $decodedPath = urldecode($path);
 
         if (Str::contains($decodedPath, '..')) {
@@ -35,11 +34,11 @@ class SiteFileManagerController extends Controller
         $safeFilename = basename($file->getClientOriginalName());
         $storagePath = rtrim($site->storage_path . '/' . trim($decodedPath, '/'), '/');
 
-        if (Storage::exists($storagePath . '/' . $safeFilename)) {
+        if (Storage::disk('public')->exists($storagePath . '/' . $safeFilename)) {
             return back()->with('error', __('panel.sites.files.file_exists'));
         }
 
-        $file->storeAs($storagePath, $safeFilename);
+        $file->storeAs($storagePath, $safeFilename, 'public');
 
         return back()->with('success', __('panel.sites.files.upload_success'));
     }
@@ -55,7 +54,7 @@ class SiteFileManagerController extends Controller
         $path = $request->query('path', '/');
         $folderName = $request->input('folder_name');
 
-        Storage::makeDirectory($site->storage_path . $path . $folderName);
+        Storage::disk('public')->makeDirectory($site->storage_path . $path . $folderName);
 
         return redirect()
             ->route('panel.sites.files', [$organisation, $site, 'path' => $path])
@@ -73,9 +72,9 @@ class SiteFileManagerController extends Controller
         foreach ($validated['items'] as $item) {
             $path = $site->storage_path . $item['path'];
             if ($item['type'] === 'file') {
-                Storage::delete($path);
+                Storage::disk('public')->delete($path);
             } else {
-                Storage::deleteDirectory($path);
+                Storage::disk('public')->deleteDirectory($path);
             }
         }
 
@@ -85,22 +84,14 @@ class SiteFileManagerController extends Controller
     public function rename(Request $request, Organisation $organisation, Site $site)
     {
         $this->authorize('viewSite', $organisation);
-
-        // Validation for renaming a file/folder
-        // Logic to rename the file/folder using Storage::move
-        // Redirect back with success or error message
-
+        // Logic for renaming will be implemented here
         return back()->with('success', 'Rename functionality will be implemented here.');
     }
 
     public function move(Request $request, Organisation $organisation, Site $site)
     {
         $this->authorize('viewSite', $organisation);
-
-        // Validation for moving files/folders
-        // Logic to move files/folders using Storage::move
-        // Redirect back with success or error message
-
+        // Logic for moving will be implemented here
         return back()->with('success', 'Move functionality will be implemented here.');
     }
 
@@ -111,23 +102,21 @@ class SiteFileManagerController extends Controller
         $file = $request->query('file');
         $path = $site->storage_path . $file;
 
-        if (!Storage::exists($path)) {
+        if (!Storage::disk('public')->exists($path)) {
             abort(Response::HTTP_NOT_FOUND, __('pages.errors.404.message'));
         }
 
-        $mimeType = Storage::mimeType($path);
+        $mimeType = Storage::disk('public')->mimeType($path);
         $fileType = 'text';
         $content = null;
         $fileUrl = null;
+        $relativePath = Str::after($path, $site->storage_path . '/');
 
-        if (Str::startsWith($mimeType, 'image/')) {
-            $fileType = 'image';
-            $fileUrl = Storage::url($path);
-        } elseif (Str::startsWith($mimeType, 'video/')) {
-            $fileType = 'video';
-            $fileUrl = Storage::url($path);
+        if (Str::startsWith($mimeType, 'image/') || Str::startsWith($mimeType, 'video/')) {
+            $fileType = Str::startsWith($mimeType, 'image/') ? 'image' : 'video';
+            $fileUrl = route('site.file.preview', ['site' => $site->id, 'path' => $relativePath]);
         } else {
-            $content = Storage::get($path);
+            $content = Storage::disk('public')->get($path);
         }
 
         return view('panel.sites.edit-file', compact('organisation', 'site', 'file', 'content', 'fileType', 'fileUrl'));
@@ -140,11 +129,11 @@ class SiteFileManagerController extends Controller
         $file = $request->query('file');
         $path = $site->storage_path . '/' . $file;
 
-        if (!Storage::exists($path)) {
+        if (!Storage::disk('public')->exists($path)) {
             abort(Response::HTTP_NOT_FOUND, __('pages.errors.404.message'));
         }
 
-        Storage::put($path, $request->input('content'));
+        Storage::disk('public')->put($path, $request->input('content'));
 
         return redirect()
             ->route('panel.sites.files', [$organisation, $site, 'path' => dirname($file)])

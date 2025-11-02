@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Panel\OrganisationController as PanelOrganisationController;
 use App\Http\Controllers\Panel\SiteController as PanelSiteController;
 use App\Http\Controllers\Panel\SiteFileManagerController as PanelSiteFileManagerController;
+use App\Http\Controllers\SitePreviewController;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -111,3 +112,4 @@ Route::middleware('auth')->name('panel.')->group(function () {
     });
 });
 Route::get('/site-preview/{site:slug}', [PanelSiteController::class, 'sitePreview'])->name('site.preview');
+Route::get('/preview-site/{site}/{path}', [SitePreviewController::class, 'show'])->where('path', '.*')->name('site.file.preview');

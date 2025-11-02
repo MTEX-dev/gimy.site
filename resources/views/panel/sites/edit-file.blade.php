@@ -18,7 +18,7 @@
                     @elseif ($fileType === 'video')
                         <div class="flex justify-center">
                             <video controls class="max-w-full h-auto rounded-lg">
-                                <source src="{{ $fileUrl }}" type="{{ Storage::mimeType($site->storage_path . $file) }}">
+                                <source src="{{ $fileUrl }}" type="{{ Storage::disk('public')->mimeType($site->storage_path . $file) }}">
                                 {{ __('Your browser does not support the video tag.') }}
                             </video>
                         </div>
