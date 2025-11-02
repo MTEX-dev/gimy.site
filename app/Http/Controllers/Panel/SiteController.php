@@ -71,7 +71,15 @@ class SiteController extends Controller
         $path = $request->query('path', '/');
         $fullPath = $site->storage_path . $path;
 
-        $files = Storage::files($fullPath);
+        $files = array_map(function ($file) {
+            return [
+                'path' => $file,
+                'name' => basename($file),
+                'type' => Storage::mimeType($file),
+                'url' => Storage::url($file),
+            ];
+        }, Storage::files($fullPath));
+
         $directories = Storage::directories($fullPath);
 
         return view('panel.sites.files', compact('organisation', 'site', 'files', 'directories', 'path'));

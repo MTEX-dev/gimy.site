@@ -115,9 +115,22 @@ class SiteFileManagerController extends Controller
             abort(Response::HTTP_NOT_FOUND, __('pages.errors.404.message'));
         }
 
-        $content = Storage::get($path);
+        $mimeType = Storage::mimeType($path);
+        $fileType = 'text';
+        $content = null;
+        $fileUrl = null;
 
-        return view('panel.sites.edit-file', compact('organisation', 'site', 'file', 'content'));
+        if (Str::startsWith($mimeType, 'image/')) {
+            $fileType = 'image';
+            $fileUrl = Storage::url($path);
+        } elseif (Str::startsWith($mimeType, 'video/')) {
+            $fileType = 'video';
+            $fileUrl = Storage::url($path);
+        } else {
+            $content = Storage::get($path);
+        }
+
+        return view('panel.sites.edit-file', compact('organisation', 'site', 'file', 'content', 'fileType', 'fileUrl'));
     }
 
     public function updateFile(Request $request, Organisation $organisation, Site $site)

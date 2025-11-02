@@ -122,19 +122,24 @@
                                 @foreach ($files as $file)
                                     <tr>
                                         <td class="p-4 whitespace-nowrap">
-                                            <input type="checkbox" value="{{ basename($file) }}" x-model="selectedItems" data-type="file"
+                                            <input type="checkbox" value="{{ $file['name'] }}" x-model="selectedItems" data-type="file"
                                                    class="rounded border-gray-300 text-gimysite-600 shadow-sm focus:ring-gimysite-500 dark:border-gray-700 dark:bg-gray-900 dark:focus:ring-gimysite-600 dark:focus:ring-offset-gray-800">
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            <a href="{{ route('panel.sites.files.edit', [$organisation, $site, 'file' => $path . basename($file)]) }}" class="text-gimysite-500 hover:text-gimysite-700 dark:hover:text-gimysite-400 flex items-center">
+                                            <a href="{{ route('panel.sites.files.edit', [$organisation, $site, 'file' => $path . $file['name']]) }}" class="text-gimysite-500 hover:text-gimysite-700 dark:hover:text-gimysite-400 flex items-center">
                                                 <svg class="w-5 h-5 mr-2 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                                                     <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.414L16.586 7A2 2 0 0117 8.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm0 3a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm0 3a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1z" clip-rule="evenodd"></path>
                                                 </svg>
-                                                {{ basename($file) }}
+                                                {{ $file['name'] }}
                                             </a>
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ __('strings.file') }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{{ Str::startsWith($file['type'], 'image/') ? __('Image') : __('strings.file') }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            @if (Str::startsWith($file['type'], 'image/'))
+                                                <x-secondary-button @click.prevent="openImagePreview('{{ $file['url'] }}')">
+                                                    {{ __('Expand') }}
+                                                </x-secondary-button>
+                                            @endif
                                             <x-dropdown align="right" width="48">
                                                 <x-slot name="trigger">
                                                     <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -142,10 +147,10 @@
                                                     </button>
                                                 </x-slot>
                                                 <x-slot name="content">
-                                                    <x-dropdown-link href="{{ route('panel.sites.files.edit', [$organisation, $site, 'file' => $path . basename($file)]) }}">{{ __('Edit') }}</x-dropdown-link>
-                                                    <x-dropdown-link href="#" @click.prevent="openRenameModal('{{ basename($file) }}', 'file')">{{ __('Rename') }}</x-dropdown-link>
-                                                    <x-dropdown-link href="#" @click.prevent="openMoveModal('{{ basename($file) }}', 'file')">{{ __('Move') }}</x-dropdown-link>
-                                                    <x-dropdown-link href="#" @click.prevent="openDeleteModal('{{ basename($file) }}', 'file')">{{ __('Delete') }}</x-dropdown-link>
+                                                    <x-dropdown-link href="{{ route('panel.sites.files.edit', [$organisation, $site, 'file' => $path . $file['name']]) }}">{{ __('View') }}</x-dropdown-link>
+                                                    <x-dropdown-link href="#" @click.prevent="openRenameModal('{{ $file['name'] }}', 'file')">{{ __('Rename') }}</x-dropdown-link>
+                                                    <x-dropdown-link href="#" @click.prevent="openMoveModal('{{ $file['name'] }}', 'file')">{{ __('Move') }}</x-dropdown-link>
+                                                    <x-dropdown-link href="#" @click.prevent="openDeleteModal('{{ $file['name'] }}', 'file')">{{ __('Delete') }}</x-dropdown-link>
                                                 </x-slot>
                                             </x-dropdown>
                                         </td>
@@ -159,6 +164,12 @@
         </div>
 
         <!-- Modals -->
+        <x-modal name="image-preview" focusable>
+            <div class="p-6">
+                <img :src="imagePreviewUrl" class="max-w-full h-auto rounded-lg">
+            </div>
+        </x-modal>
+
         <x-modal name="upload-file" :show="$errors->uploadFile->isNotEmpty()" focusable>
             <form @submit.prevent="uploadFiles($event.target.file.files)" class="p-6">
                 <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">{{ __('Upload File') }}</h2>
@@ -251,6 +262,12 @@
                 rename: { oldName: '', newName: '', type: '' },
                 move: { items: [], destination: '/' },
                 delete: { items: [] },
+                imagePreviewUrl: '',
+
+                openImagePreview(url) {
+                    this.imagePreviewUrl = url;
+                    this.$dispatch('open-modal', 'image-preview');
+                },
 
                 dropHandler(event) {
                     this.dragging = false;
