@@ -41,8 +41,13 @@ return [
         'no_sites_message' => 'This organisation has no sites yet.',
         'view_details_button' => 'View Site Details',
         'files' => [
-            'update_success' => 'File updated successfully.',
             'title' => 'Files',
+            'update_success' => 'File updated successfully.',
+            'upload_success' => 'File uploaded successfully.',
+            'create_folder_success' => 'Folder created successfully.',
+            'delete_success' => 'File or folder deleted successfully.',
+            'invalid_path' => 'Invalid path specified.',
+            'file_exists' => 'A file with this name already exists in this folder.',
         ],
         'backups' => [
             'title' => 'Backups',

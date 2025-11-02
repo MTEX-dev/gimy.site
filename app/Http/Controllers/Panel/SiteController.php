@@ -119,10 +119,32 @@ class SiteController extends Controller
             'file' => ['required', 'file', 'max:10240'],
         ]);
 
-        $path = $request->query('path', '/');
         $file = $request->file('file');
+        $path = $request->query('path', '/');
 
-        $file->storeAs($site->storage_path . $path, $file->getClientOriginalName());
+        // Decode and sanitize the path to prevent directory traversal attacks.
+        $decodedPath = urldecode($path);
+
+        if (Str::contains($decodedPath, '..')) {
+            return redirect()
+                ->route('panel.sites.files', [$organisation, $site, 'path' => $path])
+                ->with('error', __('panel.sites.files.invalid_path'));
+        }
+
+        // Sanitize the filename to prevent security issues.
+        $safeFilename = basename($file->getClientOriginalName());
+
+        // Build the final storage path.
+        $storagePath = rtrim($site->storage_path . '/' . trim($decodedPath, '/'), '/');
+
+        // Check if a file with the same name already exists.
+        if (Storage::exists($storagePath . '/' . $safeFilename)) {
+            return redirect()
+                ->route('panel.sites.files', [$organisation, $site, 'path' => $path])
+                ->with('error', __('panel.sites.files.file_exists'));
+        }
+
+        $file->storeAs($storagePath, $safeFilename);
 
         return redirect()
             ->route('panel.sites.files', [$organisation, $site, 'path' => $path])
