@@ -11,6 +11,7 @@ use App\Http\Controllers\SlugController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Panel\OrganisationController as PanelOrganisationController;
 use App\Http\Controllers\Panel\SiteController as PanelSiteController;
+use App\Http\Controllers\Panel\SiteFileManagerController as PanelSiteFileManagerController;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -94,11 +95,13 @@ Route::middleware('auth')->name('panel.')->group(function () {
         Route::prefix('/sites/{site:slug}')->name('sites.')->group(function () {
             Route::get('/', [PanelSiteController::class, 'overview'])->name('overview');
             Route::get('/files', [PanelSiteController::class, 'files'])->name('files');
-            Route::post('/files/upload', [PanelSiteController::class, 'uploadFile'])->name('files.upload');
-            Route::post('/files/create-folder', [PanelSiteController::class, 'createFolder'])->name('files.create-folder');
-            Route::delete('/files/delete', [PanelSiteController::class, 'deleteFileOrFolder'])->name('files.delete');
-            Route::get('/files/edit', [PanelSiteController::class, 'editFile'])->name('files.edit');
-            Route::put('/files/update', [PanelSiteController::class, 'updateFile'])->name('files.update');
+            Route::post('/files/upload', [PanelSiteFileManagerController::class, 'uploadFile'])->name('files.upload');
+            Route::post('/files/create-folder', [PanelSiteFileManagerController::class, 'createFolder'])->name('files.create-folder');
+            Route::post('/files/rename', [PanelSiteFileManagerController::class, 'rename'])->name('files.rename');
+            Route::post('/files/move', [PanelSiteFileManagerController::class, 'move'])->name('files.move');
+            Route::delete('/files/delete', [PanelSiteFileManagerController::class, 'delete'])->name('files.delete');
+            Route::get('/files/edit', [PanelSiteFileManagerController::class, 'editFile'])->name('files.edit');
+            Route::put('/files/update', [PanelSiteFileManagerController::class, 'updateFile'])->name('files.update');
             Route::get('/backups', [PanelSiteController::class, 'backups'])->name('backups');
             Route::get('/visits', [PanelSiteController::class, 'visits'])->name('visits');
             Route::get('/settings', [PanelSiteController::class, 'settings'])->name('settings');
